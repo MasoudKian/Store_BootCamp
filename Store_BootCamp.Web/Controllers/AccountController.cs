@@ -56,7 +56,7 @@ namespace Store_BootCamp.Web.Controllers
 
 
             };
-            _userService.CreateUser(user);
+            _userService.RegisterUser(user);
 
             // Activation Email
 

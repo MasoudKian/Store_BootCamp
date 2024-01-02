@@ -6,7 +6,8 @@ namespace Store_BootCamp.Application.Interfaces
     {
         bool IsExistUserName(string userName);
         bool IsExistEmail(string email);
+        int RegisterUser(User user);
 
-        int CreateUser(User user);
+
     }
 }

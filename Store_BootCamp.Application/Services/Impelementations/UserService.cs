@@ -29,7 +29,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
             return usernameExist.Any();
         }
 
-        public int CreateUser(User user)
+        public int RegisterUser(User user)
         {
             var newUser= _userRepository.AddUser(user);
             return newUser;
