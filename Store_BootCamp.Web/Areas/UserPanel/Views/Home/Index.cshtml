@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Store_BootCamp.Application.ViewModels.Account.InformationUserProfileViewModel
+@{
     ViewData["Title"] = " پنل کاربری " + User.Identity.Name;
 }
 
@@ -29,7 +30,7 @@
                                             <i class="ri-ball-pen-fill"></i>
                                         </button>
                                     </div>
-                                    <div class="fs-6 fw-bold text-muted">جلال بهرامی راد</div>
+                                    <div class="fs-6 fw-bold text-muted">@Model.Fullname</div>
                                 </div>
                             </div>
                             <div class="col-lg-6 mb-3">

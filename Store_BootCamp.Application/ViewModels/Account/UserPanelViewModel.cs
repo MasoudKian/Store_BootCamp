@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Store_BootCamp.Application.ViewModels.Account
+﻿namespace Store_BootCamp.Application.ViewModels.Account
 {
     public class InformationUserProfileViewModel
     {

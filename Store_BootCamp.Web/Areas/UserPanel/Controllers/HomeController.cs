@@ -4,8 +4,8 @@ using Store_BootCamp.Application.Services.Interfaces;
 
 namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
 {
-    [Area("UserPanel")]
     [Authorize]
+    [Area("UserPanel")]
     public class HomeController : Controller
     {
         #region Constructor
@@ -18,10 +18,11 @@ namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
 
         #endregion
 
-        [Route("UserPanel/Profile")]
+        
         public IActionResult Index()
         {
-            return View();
+            var user = _userService.GetInformationUser(User.Identity!.Name!);
+            return View(user);
         }
     }
 }
