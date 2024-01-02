@@ -9,10 +9,8 @@ namespace Store_BootCamp.Application.ViewModels.Account
 
         public string UserName { get; set; }
 
-        public string UserImage { get; set; }
-
         public string Email { get; set; }
 
-        public DateTime RegisterDate { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

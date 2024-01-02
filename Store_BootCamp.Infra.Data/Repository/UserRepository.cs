@@ -25,6 +25,12 @@ namespace Store_BootCamp.Infra.Data.Repository
             return userId;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            var user = _dbContext.Users.SingleOrDefault(u=>u.Email == email);
+            return user;
+        }
+
         public IEnumerable<User> GetAll()
         {
             var users = _dbContext.Users.ToList();

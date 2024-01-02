@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Store_BootCamp.Application.Services.Interfaces;
 
 namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
 {
@@ -7,10 +8,21 @@ namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
     [Authorize]
     public class AccountInfoController : Controller
     {
-        [Route("/UserPanel/Profile")]
+        #region Constructor
+
+        private readonly IUserPanelService _userPanelService;
+        public AccountInfoController(IUserPanelService userPanelService)
+        {
+            _userPanelService = userPanelService;
+        }
+
+        #endregion
+
+        [HttpGet("Profile")]
         public IActionResult Profile()
         {
-            return View();
+           var user = _userPanelService.GetInformationUser(User.Identity.Name);
+            return View(user);
         }
     }
 }

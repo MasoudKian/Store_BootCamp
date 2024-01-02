@@ -108,7 +108,7 @@ namespace Store_BootCamp.Web.Controllers
                     };
 
                     HttpContext.SignInAsync(pricipal, properties);
-                    return Redirect("/UserPanel/Profile");
+                    return Redirect("/Profile");
                 }
                 else
                 {
