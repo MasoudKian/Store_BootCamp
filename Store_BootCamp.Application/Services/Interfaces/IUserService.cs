@@ -11,5 +11,11 @@ namespace Store_BootCamp.Application.Services.Interfaces
         int RegisterUser(User user);
         User LoginUser(LoginViewModel loginUser);
         bool ActiveCode(string activeCode);
+
+        #region User Panel
+
+        InformationUserProfileViewModel GetInformationUser(string email);
+
+        #endregion
     }
 }

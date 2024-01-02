@@ -29,9 +29,11 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public User IsEmail(string email)
         {
-            var isEmail = _userRepository.GetAll().Single(e=>e.Email == email);
+            var isEmail = _userRepository.GetAll().SingleOrDefault(e=>e.Email == email);
             return isEmail;
         }
+
+
 
         public bool IsExistUserName(string userName)
         {
@@ -72,5 +74,24 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
             return true;
         }
+
+
+        #region User Panel
+
+        public InformationUserProfileViewModel GetInformationUser(string email)
+        {
+            InformationUserProfileViewModel information = new();
+            var user = _userRepository.GetUserByEmail(email);
+
+            information.Fullname = user.Fullname;
+            information.Email = user.Email;
+            information.UserName = user.UserName;
+            information.Wallet = 0;
+            information.CreateDate = user.CreateDate;
+
+            return information;
+        }
+
+        #endregion
     }
 }
