@@ -44,7 +44,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
             string email = loginUser.Email;
 
             var user = _userRepository.GetAll()
-                .Single(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+                .SingleOrDefault(u => u.Email == email && u.Password == hashPassword);
 
             return user;
         }

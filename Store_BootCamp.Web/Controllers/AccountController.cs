@@ -5,6 +5,7 @@ using Store_BootCamp.Application.Interfaces;
 using Store_BootCamp.Application.Security;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.Models.Account;
+using System.Security.Claims;
 
 namespace Store_BootCamp.Web.Controllers
 {
@@ -76,7 +77,28 @@ namespace Store_BootCamp.Web.Controllers
         [HttpPost("Login")]
         public IActionResult Login(LoginViewModel login)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                return View(login);
+            }
+
+            var user = _userService.LoginUser(login);
+
+            if (user != null)
+            {
+                if (user.IsActive)
+                {
+                    return Redirect("/");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", " حساب کاربری شما فعال نمی باشد ! ");
+                }
+            }
+            ModelState.AddModelError("Email","کاربری با مشخصات وارد شده یافت نشد ! ");
+
+            return View(login);
         }
 
         #endregion
