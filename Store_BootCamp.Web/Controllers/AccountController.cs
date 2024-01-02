@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Store_BootCamp.Application.Convertor;
 using Store_BootCamp.Application.Generators;
 using Store_BootCamp.Application.Interfaces;
@@ -80,17 +82,31 @@ namespace Store_BootCamp.Web.Controllers
 
             if (user != null)
             {
+                var email = _userService.IsEmail(login.Email) ;
                 if (user.IsActive)
                 {
-                    return Redirect("/");
+                    var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                        new Claim(ClaimTypes.Email,email.Email),
+                        new Claim(ClaimTypes.Name,user.Fullname),
+                    };
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var pricipal = new ClaimsPrincipal(identity);
+                    var properties = new AuthenticationProperties
+                    {
+                        IsPersistent = login.RememberMe
+                    };
 
+                    HttpContext.SignInAsync(pricipal, properties);
+                    return Redirect("/");
                 }
                 else
                 {
                     ModelState.AddModelError("Email", " حساب کاربری شما فعال نمی باشد ! ");
                 }
             }
-            ModelState.AddModelError("Email","کاربری با مشخصات وارد شده یافت نشد ! ");
+            ModelState.AddModelError("Email", "کاربری با مشخصات وارد شده یافت نشد ! ");
 
             return View(login);
         }
@@ -104,6 +120,17 @@ namespace Store_BootCamp.Web.Controllers
         {
             ViewBag.IsActive = _userService.ActiveCode(id);
             return View();
+        }
+
+        #endregion
+
+        #region Logout
+
+        [Route("Logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("/Login");
         }
 
         #endregion

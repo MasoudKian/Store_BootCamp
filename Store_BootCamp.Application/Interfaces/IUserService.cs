@@ -7,6 +7,7 @@ namespace Store_BootCamp.Application.Interfaces
     {
         bool IsExistUserName(string userName);
         bool IsExistEmail(string email);
+        User IsEmail(string email);
         int RegisterUser(User user);
         User LoginUser(LoginViewModel loginUser);
         bool ActiveCode(string activeCode);
