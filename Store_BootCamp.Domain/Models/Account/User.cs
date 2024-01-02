@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Store_BootCamp.Domain.Models.Account
 {
-    public class User
+    public class User : BaseEntity
     {
         [Display(Name = "نام و نام خانوادگی")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

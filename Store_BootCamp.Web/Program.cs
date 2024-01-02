@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Store_BootCamp.Infra.Data.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+#region Config DataBase
+
+builder.Services.AddDbContext<StoreDBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnectionDB"));
+});
+
+#endregion
 
 var app = builder.Build();
 
