@@ -16,8 +16,8 @@ namespace Store_BootCamp.Domain.InterfacesRepository
 
         IEnumerable<User> GetAll();
 
-
-        
         #endregion
+
+        void SaveChange();
     }
 }

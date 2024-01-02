@@ -33,12 +33,6 @@ namespace Store_BootCamp.Web.Controllers
             if (!ModelState.IsValid)
                 return View(register);
 
-            //if (_userService.IsExistEmail(FixedText.FixedEmail(register.Email)) 
-            //    || _userService.IsExistUserName(FixedText.FixedUserName(register.UserName)))
-            //{
-            //    ModelState.AddModelError("Email", "ایمیل یا نام کاربری وارد شده معتبر نمی باشد");
-            //}
-
             if (_userService.IsExistEmail(FixedText.FixedEmail(register.Email)))
             {
                 ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نمی باشد");
@@ -99,6 +93,17 @@ namespace Store_BootCamp.Web.Controllers
             ModelState.AddModelError("Email","کاربری با مشخصات وارد شده یافت نشد ! ");
 
             return View(login);
+        }
+
+        #endregion
+
+        #region Active Account
+
+
+        public IActionResult ActiveAccount(string id)
+        {
+            ViewBag.IsActive = _userService.ActiveCode(id);
+            return View();
         }
 
         #endregion

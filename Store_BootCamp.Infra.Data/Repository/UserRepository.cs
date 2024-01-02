@@ -52,5 +52,10 @@ namespace Store_BootCamp.Infra.Data.Repository
         }
 
         #endregion
+
+        public void SaveChange()
+        {
+            _dbContext.SaveChanges();
+        }
     }
 }

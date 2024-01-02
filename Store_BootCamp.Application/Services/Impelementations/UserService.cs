@@ -1,4 +1,5 @@
-﻿using Store_BootCamp.Application.Interfaces;
+﻿using Store_BootCamp.Application.Generators;
+using Store_BootCamp.Application.Interfaces;
 using Store_BootCamp.Application.Security;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.InterfacesRepository;
@@ -33,6 +34,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public int RegisterUser(User user)
         {
+
             var newUser = _userRepository.AddUser(user);
             return newUser;
 
@@ -47,6 +49,21 @@ namespace Store_BootCamp.Application.Services.Impelementations
                 .SingleOrDefault(u => u.Email == email && u.Password == hashPassword);
 
             return user;
+        }
+
+        public bool ActiveCode(string activeCode)
+        {
+            var user = _userRepository.GetAll()
+                .SingleOrDefault(u=>u.ActiveEmailCode == activeCode);
+
+            if (user == null || user.IsActive)
+                return false;
+
+            user.IsActive = true;
+            user.ActiveEmailCode = NameGenerator.GenerateUniqEmailCode();
+            _userRepository.SaveChange();
+
+            return true;
         }
     }
 }
