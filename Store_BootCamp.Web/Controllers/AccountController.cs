@@ -52,12 +52,14 @@ namespace Store_BootCamp.Web.Controllers
                 ActiveEmailCode = NameGenerator.GenerateUniqEmailCode(),
                 UserImage = "Defualt.png"
 
+
             };
             _userService.CreateUser(user);
 
+            // Activation Email
 
 
-            return Redirect("/");
+            return View("SuccessRegister", user);
         }
     }
 }
