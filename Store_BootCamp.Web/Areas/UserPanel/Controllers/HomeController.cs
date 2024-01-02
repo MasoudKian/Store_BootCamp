@@ -7,7 +7,7 @@ namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        [Route("/UserPanel/Orders")]
+        [Route("UserPanel/Profile")]
         public IActionResult Index()
         {
             return View();
