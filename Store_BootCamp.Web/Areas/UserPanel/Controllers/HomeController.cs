@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
 {
     [Area("UserPanel")]
+    [Authorize]
     public class HomeController : Controller
     {
         [Route("/UserPanel/Orders")]
@@ -10,11 +12,5 @@ namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
         {
             return View();
         }
-
-        //[Route("/UserPanel/FavoritesList")]
-        //public IActionResult FavoritesList()
-        //{
-        //    return View();
-        //}
     }
 }
