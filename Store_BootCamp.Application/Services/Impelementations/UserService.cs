@@ -32,6 +32,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
             var isEmail = _userRepository.GetAll().Single(e=>e.Email == email);
             return isEmail;
         }
+
         public bool IsExistUserName(string userName)
         {
             var usernameExist = _userRepository.GetAll().Where(e => e.UserName == userName);
