@@ -11,10 +11,10 @@ namespace Store_BootCamp.Web.Areas.UserPanel.Controllers
             return View();
         }
 
-        [Route("/UserPanel/FavoritesList")]
-        public IActionResult FavoritesList()
-        {
-            return View();
-        }
+        //[Route("/UserPanel/FavoritesList")]
+        //public IActionResult FavoritesList()
+        //{
+        //    return View();
+        //}
     }
 }
