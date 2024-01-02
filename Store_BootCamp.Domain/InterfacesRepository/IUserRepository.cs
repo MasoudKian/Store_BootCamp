@@ -8,6 +8,8 @@ namespace Store_BootCamp.Domain.InterfacesRepository
         
         User GetById(int id);
 
+        User GetUserByEmail(string email);
+
         int AddUser(User user);
 
         void UpdateUser(User user);
