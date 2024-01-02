@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Store_BootCamp.Infra.Data\Store_BootCamp.Infra.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\Account\" />
-  </ItemGroup>
-
 </Project>
