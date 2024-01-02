@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Store_BootCamp.Application.Convertor;
 using Store_BootCamp.Application.Interfaces;
 using Store_BootCamp.Application.Services.Impelementations;
 using Store_BootCamp.Domain.InterfacesRepository;
@@ -11,6 +12,7 @@ namespace Store_BootCamp.Infra.IoC
         public static void RegisterServices(IServiceCollection services)
         {
             // Application Layer
+            services.AddTransient<IViewRenderService, RenderViewToString>();
             services.AddScoped<IUserService, UserService>();
 
             //Infra Data

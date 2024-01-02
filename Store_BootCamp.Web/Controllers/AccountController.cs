@@ -15,9 +15,12 @@ namespace Store_BootCamp.Web.Controllers
     {
         #region Constructor
         private readonly IUserService _userService;
-        public AccountController(IUserService userService)
+        private readonly IViewRenderService _viewRender;
+
+        public AccountController(IUserService userService,IViewRenderService viewRender)
         {
             _userService = userService;
+            _viewRender = viewRender;
         }
         #endregion
 
