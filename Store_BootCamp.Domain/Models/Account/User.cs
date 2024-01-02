@@ -14,6 +14,9 @@ namespace Store_BootCamp.Domain.Models.Account
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string UserName { get; set; }
 
+        [Display(Name = "عکس کاربر")]
+        public string UserImage { get; set; }
+
         [Display(Name = "ایمیل")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]

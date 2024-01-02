@@ -1,5 +1,6 @@
 ﻿using Store_BootCamp.Application.Interfaces;
 using Store_BootCamp.Domain.InterfacesRepository;
+using Store_BootCamp.Domain.Models.Account;
 
 namespace Store_BootCamp.Application.Services.Impelementations
 {
@@ -26,6 +27,13 @@ namespace Store_BootCamp.Application.Services.Impelementations
         {
             var usernameExist = _userRepository.GetAll().Where(e => e.UserName == userName);
             return usernameExist.Any();
+        }
+
+        public int CreateUser(User user)
+        {
+            var newUser= _userRepository.AddUser(user);
+            return newUser;
+
         }
     }
 }

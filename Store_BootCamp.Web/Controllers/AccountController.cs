@@ -2,6 +2,7 @@
 using Store_BootCamp.Application.Convertor;
 using Store_BootCamp.Application.Generators;
 using Store_BootCamp.Application.Interfaces;
+using Store_BootCamp.Application.Security;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.Models.Account;
 
@@ -47,11 +48,14 @@ namespace Store_BootCamp.Web.Controllers
                 Fullname = register.Fullname,
                 UserName = FixedText.FixedUserName(register.UserName),
                 Email = FixedText.FixedEmail(register.Email),
-                Password = register.Password,
+                Password = PasswordHelper.EncodePasswordSha256(register.Password),
                 ActiveEmailCode = NameGenerator.GenerateUniqEmailCode(),
+                UserImage = "Defualt.png"
 
-                
             };
+            _userService.CreateUser(user);
+
+
 
             return Redirect("/");
         }
