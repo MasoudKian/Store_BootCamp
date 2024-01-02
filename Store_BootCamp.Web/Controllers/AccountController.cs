@@ -73,6 +73,12 @@ namespace Store_BootCamp.Web.Controllers
             return View();
         }
 
+        [HttpPost("Login")]
+        public IActionResult Login(LoginViewModel login)
+        {
+            return View();
+        }
+
         #endregion
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Store_BootCamp.Application.Interfaces;
+using Store_BootCamp.Application.Security;
+using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
 
 namespace Store_BootCamp.Application.Services.Impelementations
 {
-    
+
     public class UserService : IUserService
     {
         #region Constructor
@@ -19,7 +21,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public bool IsExistEmail(string email)
         {
-            var emailExist = _userRepository.GetAll().Where(e=>e.Email == email);
+            var emailExist = _userRepository.GetAll().Where(e => e.Email == email);
             return emailExist.Any();
         }
 
@@ -31,9 +33,20 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public int RegisterUser(User user)
         {
-            var newUser= _userRepository.AddUser(user);
+            var newUser = _userRepository.AddUser(user);
             return newUser;
 
+        }
+
+        public User LoginUser(LoginViewModel loginUser)
+        {
+            string hashPassword = PasswordHelper.EncodePasswordSha256(loginUser.Password);
+            string email = loginUser.Email;
+
+            var user = _userRepository.GetAll()
+                .Single(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+
+            return user;
         }
     }
 }

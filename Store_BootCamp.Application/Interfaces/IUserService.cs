@@ -1,4 +1,5 @@
-﻿using Store_BootCamp.Domain.Models.Account;
+﻿using Store_BootCamp.Application.ViewModels.Account;
+using Store_BootCamp.Domain.Models.Account;
 
 namespace Store_BootCamp.Application.Interfaces
 {
@@ -8,6 +9,6 @@ namespace Store_BootCamp.Application.Interfaces
         bool IsExistEmail(string email);
         int RegisterUser(User user);
 
-
+        User LoginUser(LoginViewModel loginUser);
     }
 }
