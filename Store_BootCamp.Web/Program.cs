@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Store_BootCamp.Infra.Data.Context;
+using Store_BootCamp.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,12 @@ builder.Services.AddDbContext<StoreDBContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnectionDB"));
 });
+
+#endregion
+
+#region Dependency Injection IoC
+
+DependencyContainer.RegisterServices(builder.Services);
 
 #endregion
 
