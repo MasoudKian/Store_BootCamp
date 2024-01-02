@@ -20,6 +20,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         #endregion
 
+
         public bool IsExistEmail(string email)
         {
             var emailExist = _userRepository.GetAll().Where(e => e.Email == email);
