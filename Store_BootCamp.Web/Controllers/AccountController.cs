@@ -18,6 +18,8 @@ namespace Store_BootCamp.Web.Controllers
         }
         #endregion
 
+        #region Register
+
         [HttpGet("Register")]
         public IActionResult Register()
         {
@@ -27,7 +29,7 @@ namespace Store_BootCamp.Web.Controllers
         [HttpPost("Register")]
         public IActionResult Register(RegisterViewModel register)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(register);
 
             //if (_userService.IsExistEmail(FixedText.FixedEmail(register.Email)) 
@@ -61,5 +63,16 @@ namespace Store_BootCamp.Web.Controllers
 
             return View("SuccessRegister", user);
         }
+        #endregion
+
+        #region Login
+
+        [HttpGet("Login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }

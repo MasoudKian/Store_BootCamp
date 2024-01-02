@@ -1,4 +1,4 @@
-﻿@model Store_BootCamp.Domain.Models.Account.User
+﻿@model Store_BootCamp.Application.ViewModels.Account.LoginViewModel
 @{
     Layout = null;
 }
@@ -14,7 +14,7 @@
     <meta name="theme-color" content="#2962ff">
     <meta name="msapplication-navbutton-color" content="#2962ff">
     <meta name="apple-mobile-web-app-status-bar-style" content="#2962ff">
-    <title> اتمام ثبت نام</title>
+    <title>وروبد به سایت</title>
     <link rel="stylesheet" href="./theme-assets/css/dependencies.css">
     <link rel="stylesheet" href="./theme-assets/css/theme.css">
     <link rel="stylesheet" href="./theme-assets/css/custom.css">
@@ -33,33 +33,49 @@
         <main class="page-content page-auth">
             <!-- start of auth-container -->
             <div class="auth-container">
-                <div class="auth-title mb-3">خوش آمدید</div>
+                <div class="auth-title mb-3">ورود / <a href="/Register">ثبت نام</a></div>
                 <!-- start of auth-box -->
                 <div class="auth-box ui-box">
-                    <div class="fs-6 fw-bold text-dark text-center mb-3">@Model.Fullname عزیز حساب کاربری شما ساخته شد</div>
-                    <div class="fs-7 fw-bold text-muted text-center mb-3">
-                       ایمیل فعالسازی برای شما ارسال شد . 
-                       <br />
-                       برای ادامه مراحل ثبت نام و فعال سازی حساب کاربری خود وارد ایمیل خود شوید و روی لینک کلیک کنید .
-                    </div>
-                    <a href="https://www.google.com/" class="btn btn-block btn-primary mb-3">
-                        <i class="ri-user-6-fill me-2"></i> تکمیل حساب
-                        کاربری
-                    </a>
-                    <div class="text-center">
-                        <a href="/" class="link">بازگشت به صفحه‌ اصلی</a>
-                    </div>
+                    <!-- start of auth-form -->
+                    <form action="#" class="auth-form">
+                        <!-- start of form-element -->
+                        <div class="form-element-row mb-5">
+                            <input asp-for="Email" type="text" class="form-control" placeholder="ایمیل یا نام کاربری">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-element-row mb-5">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                        <div class="form-element-row mb-5">
+                            <label style="text-align:right;"><input asp-for="RememberMe" type="checkbox"> مرا به خاطر بسپار </label>
+                        </div>
+                        <!-- end of form-element -->
+                        <!-- start of form-element -->
+                        <div class="form-element-row mb-3">
+                            <button class="btn btn-primary">ادامه</button>
+                        </div>
+                        <!-- end of form-element -->
+                        <!-- start of form-element -->
+                        <div class="form-element-row">
+                            <div>
+                                با ورود و یا ثبت نام در سایت شما <a href="#" class="link">
+                                    شرایط و
+                                    قوانین
+                                </a> استفاده
+                                از تمام سرویس های
+                                سایت و <a href="#" class="link">قوانین حریم خصوصی</a> آن را می‌پذیرید.
+                            </div>
+                        </div>
+                        <!-- end of form-element -->
+                    </form>
+                    <!-- end of auth-form -->
                 </div>
                 <!-- end of auth-box -->
             </div>
-            <!-- end of auth-container -->
+            <!-- start of auth-container -->
         </main>
         <footer class="page-mini-footer">
-            <div class="d-flex justify-content-center py-5">
-                <div class="logo-container">
-                    <a href="#" class="logo"><img src="./theme-assets/images/logo-dark.svg" width="120" alt=""></a>
-                </div>
-            </div>
             <div class="copy-right bg-light py-3">
                 <div class="container">
                     <div class="row">
@@ -95,6 +111,9 @@
     <script src="./theme-assets/js/dependencies/zoomsl.min.js"></script>
     <script src="./theme-assets/js/theme.js"></script>
     <script src="./theme-assets/js/custom.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 </body>
 
 </html>
