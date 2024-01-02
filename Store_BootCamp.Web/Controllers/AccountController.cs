@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Store_BootCamp.Application.Convertor;
 using Store_BootCamp.Application.Generators;
-using Store_BootCamp.Application.Interfaces;
 using Store_BootCamp.Application.Security;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.Models.Account;
 using System.Security.Claims;
+using Store_BootCamp.Application.Services.Interfaces;
+using Store_BootCamp.Application.Senders;
 
 namespace Store_BootCamp.Web.Controllers
 {
@@ -58,7 +59,12 @@ namespace Store_BootCamp.Web.Controllers
             };
             _userService.RegisterUser(user);
 
-            // Activation Email
+            #region Send Activation Email
+
+            string body = _viewRender.RenderToStringAsync("_ActiveEmail",user);
+            SendEmail.Send(user.Email,"فعال سازی",body);
+
+            #endregion
 
 
             return View("SuccessRegister", user);

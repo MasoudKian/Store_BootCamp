@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Store_BootCamp.Application.Convertor;
-using Store_BootCamp.Application.Interfaces;
 using Store_BootCamp.Application.Services.Impelementations;
+using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Infra.Data.Repository;
 
