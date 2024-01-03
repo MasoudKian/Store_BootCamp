@@ -4,7 +4,7 @@ namespace Store_BootCamp.Web.Extentions
 {
     public static class IdentityExtentions
     {
-        public static int GetUserId(this ClaimsPrincipal claimsPrincipal)
+        public static int? GetUserId(this ClaimsPrincipal claimsPrincipal)
         {
             if (claimsPrincipal !=null)
             {
@@ -12,7 +12,7 @@ namespace Store_BootCamp.Web.Extentions
 
                 if (data != null) return Convert.ToInt32(data.Value);
             }
-            return default(int);
+            return null;
         }
     }
 }
