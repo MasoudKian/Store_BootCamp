@@ -12,7 +12,5 @@ namespace Store_BootCamp.Application.Services.Impelementations
             _contactRepository = contactRepository;
         }
         #endregion
-
-
     }
 }

@@ -1,16 +1,11 @@
-﻿using Store_BootCamp.Domain.Models.Account;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Store_BootCamp.Domain.Models.Contacts
+namespace Store_BootCamp.Application.ViewModels.ContactUs
 {
-    public class ContactUs : BaseEntity
+    public class CreateContactUsViewModel
     {
-        #region properties
         public int? UserId { get; set; }
 
-        [Display(Name = "IP کاربر")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string? UserIp { get; set; }
 
         [Display(Name = "موضوع تیکت")]
@@ -36,15 +31,7 @@ namespace Store_BootCamp.Domain.Models.Contacts
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string? Description { get; set; }
 
-        [Display(Name ="فایل")]
+        [Display(Name = "فایل")]
         public string? FileTicket { get; set; }
-
-        #endregion
-
-        #region Relations
-
-        public User User { get; set; }
-
-        #endregion
     }
 }
