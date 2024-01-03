@@ -153,12 +153,24 @@ namespace Store_BootCamp.Web.Controllers
                 ModelState.AddModelError("Email", "کاربر یافت نشد ! ");
             }
 
+            // Send Email
+            string bodyEmail = _viewRender.RenderToStringAsync("_ForgotPassword", user);
+            SendEmail.Send(user.Email,"بازیابی حساب کاربری",bodyEmail);
+            ViewBag.IsSuccess = true;   
 
-
-            return View(forgot);
-
-
+            return View();
         }
+
+
+        #endregion
+
+        #region Reset Password
+
+        public IActionResult ResetPassword(string id)
+        {
+            return View();
+        }
+
         #endregion
 
         #region Logout
