@@ -1,5 +1,6 @@
 ﻿using Store_BootCamp.Domain.Models.Account;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Store_BootCamp.Domain.Models.Contacts
 {
@@ -44,6 +45,7 @@ namespace Store_BootCamp.Domain.Models.Contacts
 
         #region Relations
 
+        [ForeignKey("UserId")]
         public User User { get; set; }
 
         #endregion

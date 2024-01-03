@@ -14,6 +14,7 @@ namespace Store_BootCamp.Infra.IoC
             // Application Layer
             services.AddTransient<IViewRenderService, RenderViewToString>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IContactService, ContactService>();
 
             //Infra Data
             services.AddScoped<IUserRepository, UserRepository>();
