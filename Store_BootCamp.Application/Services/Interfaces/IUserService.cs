@@ -12,7 +12,7 @@ namespace Store_BootCamp.Application.Services.Interfaces
         User LoginUser(LoginViewModel loginUser);
         void UpdateUser(User user);
         bool ActiveCode(string activeCode);
-
+        public ICollection<UserViewmodel> GetUsers();
         User GetUserByEmail(ForgotPasswordViewModel forgot);
         User GetUserByActiveCode(string activeCode);
     }
