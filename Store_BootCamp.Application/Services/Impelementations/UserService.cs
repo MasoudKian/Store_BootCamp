@@ -1,4 +1,5 @@
-﻿using Store_BootCamp.Application.Generators;
+﻿using Store_BootCamp.Application.Convertor;
+using Store_BootCamp.Application.Generators;
 using Store_BootCamp.Application.Security;
 using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.Account;
@@ -69,6 +70,15 @@ namespace Store_BootCamp.Application.Services.Impelementations
             _userRepository.SaveChange();
 
             return true;
+        }
+
+        public User GetUserByEmail(ForgotPasswordViewModel forgot)
+        {
+            string fixedEmail = FixedText.FixedEmail(forgot.Email);
+            User user = _userRepository.GetUserByEmail(fixedEmail);
+
+            return user;
+
         }
     }
 }

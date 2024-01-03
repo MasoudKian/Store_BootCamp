@@ -16,6 +16,8 @@ namespace Store_BootCamp.Domain.InterfacesRepository
 
         IEnumerable<User> GetAll();
 
+        User GetUserByEmail(string email);
+
         #endregion
 
         void SaveChange();

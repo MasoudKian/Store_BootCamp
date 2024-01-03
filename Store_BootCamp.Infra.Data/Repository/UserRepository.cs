@@ -31,6 +31,11 @@ namespace Store_BootCamp.Infra.Data.Repository
             return users;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            var emailUser = _dbContext.Users.SingleOrDefault(u => u.Email == email);
+            return emailUser;
+        }
         public int AddUser(User user)
         {
             _dbContext.Add(user);

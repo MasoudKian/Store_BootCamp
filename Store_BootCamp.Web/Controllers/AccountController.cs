@@ -133,6 +133,34 @@ namespace Store_BootCamp.Web.Controllers
 
         #endregion
 
+        #region Forgot Password
+
+        [HttpGet("ForgotPassword")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost("ForgotPassword")]
+        public IActionResult ForgotPassword(ForgotPasswordViewModel forgot)
+        {
+            if (!ModelState.IsValid) return View(forgot);
+
+            var user = _userService.GetUserByEmail(forgot);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "کاربر یافت نشد ! ");
+            }
+
+
+
+            return View(forgot);
+
+
+        }
+        #endregion
+
         #region Logout
 
         [Route("Logout")]
