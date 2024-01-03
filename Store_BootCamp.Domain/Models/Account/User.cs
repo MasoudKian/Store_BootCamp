@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Store_BootCamp.Domain.Models.Contacts;
+using System.ComponentModel.DataAnnotations;
 
 namespace Store_BootCamp.Domain.Models.Account
 {
@@ -36,6 +37,13 @@ namespace Store_BootCamp.Domain.Models.Account
 
         [Display(Name = "ادمین است / ادمین نیست")]
         public bool IsAdmin { get; set; }
+
+
+        #region Relations
+
+        public ICollection<ContactUs> ContactUs { get; set; }
+
+        #endregion
 
     }
 }

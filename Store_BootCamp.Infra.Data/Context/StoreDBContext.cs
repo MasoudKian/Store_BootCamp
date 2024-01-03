@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store_BootCamp.Domain.Models.Account;
+using Store_BootCamp.Domain.Models.Contacts;
 
 namespace Store_BootCamp.Infra.Data.Context
 {
@@ -12,7 +13,13 @@ namespace Store_BootCamp.Infra.Data.Context
 
         #region Dbset
 
+        #region Account
         public DbSet<User> Users { get; set; }
+        #endregion
+
+        #region Contact Us
+        public DbSet<ContactUs> ContactUs { get; set; }
+        #endregion
 
         #endregion
     }
