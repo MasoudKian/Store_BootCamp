@@ -91,5 +91,21 @@ namespace Store_BootCamp.Application.Services.Impelementations
             var user = _userRepository.GetUserByActiveCode(activeCode);
             return user;
         }
+
+        public ICollection<UserViewmodel> GetUsers()
+        {
+            var users = _userRepository.GetAll();
+            var userlist= new List<UserViewmodel>();
+            foreach (var user in users) {
+            var userviewmodel = new UserViewmodel();
+                userviewmodel.id= user.Id;
+                userviewmodel.img = user.UserImage;
+                userviewmodel.email = user.Email;
+                userviewmodel.username = user.UserName;
+                userviewmodel.isAdmin= user.IsAdmin;
+                userlist.Add(userviewmodel);
+            }
+            return userlist;
+        }
     }
 }
