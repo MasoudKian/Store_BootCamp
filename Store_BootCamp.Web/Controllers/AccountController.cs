@@ -133,6 +133,65 @@ namespace Store_BootCamp.Web.Controllers
 
         #endregion
 
+        #region Forgot Password
+
+        [HttpGet("ForgotPassword")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost("ForgotPassword")]
+        public IActionResult ForgotPassword(ForgotPasswordViewModel forgot)
+        {
+            if (!ModelState.IsValid) return View(forgot);
+
+            var user = _userService.GetUserByEmail(forgot);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "کاربر یافت نشد ! ");
+            }
+
+            // Send Email
+            string bodyEmail = _viewRender.RenderToStringAsync("_ForgotPassword", user);
+            SendEmail.Send(user.Email,"بازیابی حساب کاربری",bodyEmail);
+            ViewBag.IsSuccess = true;   
+
+            return View();
+        }
+
+
+        #endregion
+
+        #region Reset Password
+
+        
+        public IActionResult ResetPassword(string id)
+        {
+            return View(new ResetPasswordViewModel()
+            {
+                ActiveCode = id,
+            });
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel reset)
+        {
+            if (!ModelState.IsValid) return View(reset);
+
+            User user = _userService.GetUserByActiveCode(reset.ActiveCode);
+            if (user == null) return NotFound();
+
+            string hashNewPass = PasswordHelper.EncodePasswordSha256(reset.Password);
+            user.Password = hashNewPass;
+            _userService.UpdateUser(user);
+
+            return Redirect("/Login");
+        }
+
+        #endregion
+
         #region Logout
 
         [Route("Logout")]

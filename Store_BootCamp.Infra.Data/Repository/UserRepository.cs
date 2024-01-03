@@ -17,7 +17,6 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         #endregion
 
-        #region CRUD User 
 
         public User GetById(int id)
         {
@@ -31,6 +30,11 @@ namespace Store_BootCamp.Infra.Data.Repository
             return users;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            var emailUser = _dbContext.Users.SingleOrDefault(u => u.Email == email);
+            return emailUser;
+        }
         public int AddUser(User user)
         {
             _dbContext.Add(user);
@@ -51,7 +55,12 @@ namespace Store_BootCamp.Infra.Data.Repository
             UpdateUser(user);
         }
 
-        #endregion
+        public User GetUserByActiveCode(string activeCode)
+        {
+            var userActiveCode = _dbContext.Users.SingleOrDefault(u => u.ActiveEmailCode == activeCode);
+            return userActiveCode;
+        }
+
 
         public void SaveChange()
         {

@@ -4,7 +4,7 @@ namespace Store_BootCamp.Domain.InterfacesRepository
 {
     public interface IUserRepository
     {
-        #region CRUD
+
         
         User GetById(int id);
 
@@ -16,7 +16,9 @@ namespace Store_BootCamp.Domain.InterfacesRepository
 
         IEnumerable<User> GetAll();
 
-        #endregion
+        User GetUserByEmail(string email);
+
+        User GetUserByActiveCode(string activeCode);
 
         void SaveChange();
     }
