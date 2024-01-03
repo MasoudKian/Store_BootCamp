@@ -46,6 +46,11 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         }
 
+        public void UpdateUser(User user)
+        {
+            _userRepository.UpdateUser(user);
+        }
+
         public User LoginUser(LoginViewModel loginUser)
         {
             string hashPassword = PasswordHelper.EncodePasswordSha256(loginUser.Password);
@@ -55,6 +60,15 @@ namespace Store_BootCamp.Application.Services.Impelementations
                 .SingleOrDefault(u => u.Email == email && u.Password == hashPassword);
 
             return user;
+        }
+
+        public User GetUserByEmail(ForgotPasswordViewModel forgot)
+        {
+            string fixedEmail = FixedText.FixedEmail(forgot.Email);
+            User user = _userRepository.GetUserByEmail(fixedEmail);
+
+            return user;
+
         }
 
         public bool ActiveCode(string activeCode)
@@ -72,13 +86,10 @@ namespace Store_BootCamp.Application.Services.Impelementations
             return true;
         }
 
-        public User GetUserByEmail(ForgotPasswordViewModel forgot)
+        public User GetUserByActiveCode(string activeCode)
         {
-            string fixedEmail = FixedText.FixedEmail(forgot.Email);
-            User user = _userRepository.GetUserByEmail(fixedEmail);
-
+            var user = _userRepository.GetUserByActiveCode(activeCode);
             return user;
-
         }
     }
 }

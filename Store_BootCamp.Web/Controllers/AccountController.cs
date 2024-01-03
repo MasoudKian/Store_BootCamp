@@ -166,9 +166,28 @@ namespace Store_BootCamp.Web.Controllers
 
         #region Reset Password
 
+        
         public IActionResult ResetPassword(string id)
         {
-            return View();
+            return View(new ResetPasswordViewModel()
+            {
+                ActiveCode = id,
+            });
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel reset)
+        {
+            if (!ModelState.IsValid) return View(reset);
+
+            User user = _userService.GetUserByActiveCode(reset.ActiveCode);
+            if (user == null) return NotFound();
+
+            string hashNewPass = PasswordHelper.EncodePasswordSha256(reset.Password);
+            user.Password = hashNewPass;
+            _userService.UpdateUser(user);
+
+            return Redirect("/Login");
         }
 
         #endregion

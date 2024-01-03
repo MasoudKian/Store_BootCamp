@@ -10,8 +10,10 @@ namespace Store_BootCamp.Application.Services.Interfaces
         User IsEmail(string email);
         int RegisterUser(User user);
         User LoginUser(LoginViewModel loginUser);
+        void UpdateUser(User user);
         bool ActiveCode(string activeCode);
 
         User GetUserByEmail(ForgotPasswordViewModel forgot);
+        User GetUserByActiveCode(string activeCode);
     }
 }
