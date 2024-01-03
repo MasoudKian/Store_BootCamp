@@ -29,6 +29,7 @@ namespace Store_BootCamp.Domain.Models.Contacts
         public string? Email { get; set; }
 
         [Display(Name = "شماره تماس")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(11, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string? Phone { get; set; }
 
