@@ -8,13 +8,13 @@ namespace Store_BootCamp.Domain.Models.Contacts
     {
         #region properties
         public int? UserId { get; set; }
+        public int? ResponseId { get; set; } 
 
         [Display(Name = "IP کاربر")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string? UserIp { get; set; }
 
-        public int? ResponseId { get; set; } 
 
         [Display(Name = "موضوع تیکت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
