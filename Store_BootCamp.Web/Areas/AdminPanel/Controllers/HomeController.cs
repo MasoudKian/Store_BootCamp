@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Store_BootCamp.Application.Generators;
 using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.InterfacesRepository;
@@ -31,8 +32,8 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
         }
         public IActionResult FullDeleteUser(int id)
         {
-           userRepository.FullDeleteUser(id);
-           userRepository.saveChanges();
+            userRepository.FullDeleteUser(id);
+            userRepository.saveChanges();
             return RedirectToAction("UserList");
         }
         [HttpGet]
@@ -40,12 +41,12 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
         {
             var user = userRepository.GetById(id);
             var userViewModel = new UserViewmodel();
-            userViewModel.email=user.Email;
+            userViewModel.email = user.Email;
             userViewModel.isActive = user.IsActive;
             userViewModel.username = user.UserName;
             userViewModel.fullname = user.Fullname;
             userViewModel.img = user.UserImage;
-            userViewModel.isAdmin=user.IsAdmin;
+            userViewModel.isAdmin = user.IsAdmin;
 
 
             return View(userViewModel);
@@ -64,6 +65,47 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
             userRepository.UpdateUser(EditedUser);
             userRepository.saveChanges();
             return RedirectToAction("UserList");
+        }
+        [HttpGet]
+        public IActionResult AddUserByAdmin()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddUserByAdmin(UserViewmodel userViewmodel)
+        {
+            var user = new User();
+
+            if (userRepository.IsExistEmail(userViewmodel.email)==true)
+            {
+                return NotFound();
+            }
+            if (userViewmodel.img == null)
+            {
+                user.UserImage = "Defualt.png";
+            }
+            else
+            {
+                user.UserImage = userViewmodel.img;
+            }
+            if (userViewmodel != null )
+            {
+             
+
+                user.Email = userViewmodel.email;
+                user.Fullname = userViewmodel.fullname;
+                user.UserName = userViewmodel.username;
+                user.Password = userViewmodel.password;
+                user.ActiveEmailCode = NameGenerator.GenerateUniqEmailCode();
+                userRepository.RegisterUser(user);
+                userRepository.saveChanges();
+                return RedirectToAction("UserList");
+
+            }
+
+
+            return View();
         }
     }
 }
