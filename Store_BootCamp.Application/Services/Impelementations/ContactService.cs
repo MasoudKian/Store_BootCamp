@@ -33,5 +33,10 @@ namespace Store_BootCamp.Application.Services.Impelementations
             _contactRepository.AddContactUs(newContact); 
 
         }
+
+        public void RespondToContactUsByEmail(string userEmail, ContactUsResponse response)
+        {
+
+        }
     }
 }
