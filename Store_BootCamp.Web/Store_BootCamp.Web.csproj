@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Store_BootCamp.Infra.IoC\Store_BootCamp.Infra.IoC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Admin\templates\Admin template\upload\" />
-  </ItemGroup>
-
 </Project>

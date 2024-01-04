@@ -5,7 +5,7 @@ namespace Store_BootCamp.Domain.InterfacesRepository
     public interface IUserRepository
     {
         User GetById(int id);
-
+        public void FullDeletUser(int id);
         int AddUser(User user);
 
         void UpdateUser(User user);

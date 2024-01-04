@@ -66,5 +66,11 @@ namespace Store_BootCamp.Infra.Data.Repository
         {
             _dbContext.SaveChanges();
         }
+
+        public void FullDeletUser(int id)
+        {
+            var user = GetById(id);
+            _dbContext.Users.Remove(user);
+        }
     }
 }

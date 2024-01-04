@@ -48,6 +48,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public void UpdateUser(User user)
         {
+          
             _userRepository.UpdateUser(user);
         }
 
@@ -102,10 +103,17 @@ namespace Store_BootCamp.Application.Services.Impelementations
                 userviewmodel.img = user.UserImage;
                 userviewmodel.email = user.Email;
                 userviewmodel.username = user.UserName;
+                userviewmodel.FullName = user.Fullname;
                 userviewmodel.isAdmin= user.IsAdmin;
+                userviewmodel.isActive= user.IsActive;
                 userlist.Add(userviewmodel);
             }
             return userlist;
+        }
+
+        public void FullDelete(int id)
+        {
+            _userRepository.FullDeletUser(id);
         }
     }
 }
