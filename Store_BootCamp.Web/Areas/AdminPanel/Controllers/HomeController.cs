@@ -3,7 +3,6 @@
 namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Route("paneladmin")]
     public class HomeController : Controller
     {
         
