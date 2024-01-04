@@ -72,5 +72,10 @@ namespace Store_BootCamp.Infra.Data.Repository
             var user = GetById(id);
             _dbContext.Users.Remove(user);
         }
+
+        public void EditUser(User user)
+        {
+            _dbContext.Users.Update(user);
+        }
     }
 }

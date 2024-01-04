@@ -2,6 +2,7 @@
 using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.InterfacesRepository;
+using Store_BootCamp.Domain.Models.Account;
 
 namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 {
@@ -22,22 +23,47 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
             var list = userRepository.GetUsers();
             return View(list);
         }
-        [HttpPost]
         public IActionResult DeleteUser(int id)
         {
             userRepository.DeleteUser(id);
             userRepository.saveChanges();
             return RedirectToAction("UserList");
         }
-        [HttpGet]
-        public IActionResult EditUser()
+        public IActionResult FullDeleteUser(int id)
         {
-            return View();
+           userRepository.FullDeleteUser(id);
+           userRepository.saveChanges();
+            return RedirectToAction("UserList");
+        }
+        [HttpGet]
+        public IActionResult EditUser(int id)
+        {
+            var user = userRepository.GetById(id);
+            var userViewModel = new UserViewmodel();
+            userViewModel.email=user.Email;
+            userViewModel.isActive = user.IsActive;
+            userViewModel.username = user.UserName;
+            userViewModel.fullname = user.Fullname;
+            userViewModel.img = user.UserImage;
+            userViewModel.isAdmin=user.IsAdmin;
+
+
+            return View(userViewModel);
         }
         [HttpPost]
-        public IActionResult EditUser(UserViewmodel userViewmodel)
+        public IActionResult EditUser(UserViewmodel user)
         {
-            return View();
+            var EditedUser = userRepository.GetById(user.id);
+            EditedUser.Email = user.email;
+            EditedUser.IsActive = user.isActive;
+            EditedUser.UserImage = user.img;
+            EditedUser.Fullname = user.fullname;
+            EditedUser.UserName = user.username;
+            EditedUser.IsAdmin = user.isAdmin;
+
+            userRepository.UpdateUser(EditedUser);
+            userRepository.saveChanges();
+            return RedirectToAction("UserList");
         }
     }
 }

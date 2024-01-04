@@ -17,6 +17,8 @@ namespace Store_BootCamp.Application.Services.Interfaces
         User GetUserByActiveCode(string activeCode);
         public void DeleteUser(int id);
         public void FullDeleteUser(int id);
+        public User GetById(int id);
+        public void EditUser(UserViewmodel userViewmodel);
         public void saveChanges();
 
     }

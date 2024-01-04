@@ -128,6 +128,11 @@ namespace Store_BootCamp.Application.Services.Impelementations
             return userViewModel;
         }
 
+        public User GetById(int id)
+        {
+          return  _userRepository.GetById(id);
+        }
+
         public void saveChanges()
         {
             _userRepository.SaveChange();
@@ -136,6 +141,18 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public void FullDeleteUser(int id)
         {
             _userRepository.FullDeletUser(id);
+        }
+
+        public void EditUser(UserViewmodel userViewmodel)
+        {
+            var user=_userRepository.GetById(userViewmodel.id);
+            user.UserImage = userViewmodel.img;
+            user.Email = userViewmodel.email;
+            user.Fullname = userViewmodel.fullname;
+            user.IsActive = userViewmodel.isActive;
+            user.IsAdmin = userViewmodel.isAdmin;
+            user.UserName = userViewmodel.username;
+
         }
     }
 }

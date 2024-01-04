@@ -17,6 +17,7 @@ namespace Store_BootCamp.Domain.InterfacesRepository
         User GetUserByEmail(string email);
 
         User GetUserByActiveCode(string activeCode);
+        public void EditUser(User user);
 
         void SaveChange();
     }

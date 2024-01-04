@@ -5,7 +5,7 @@
 <div style="margin-right:13%" class="container">
     <div class="page-body">
         <div class="row">
-            <div class="col-xs-12 col-md-6">
+            <div class="col">
                 <div class="well with-header  with-footer">
                     <div class="header bg-blue">
                         Simple Table With Hover
@@ -16,16 +16,23 @@
 
                             <tr>
                                 <th>
-                                    #
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Family
-                                </th>
-                                <th>
                                     Username
+
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    FullName
+                                </th>
+                                <th>
+                                    profile pic
+                                </th>
+                                <th>
+                                    is active
+                                </th>
+                                <th>
+                                    is admin
                                 </th>
                             </tr>
 
@@ -47,12 +54,20 @@
                                         <img style="width:10%" src="~/UserImage/@item.img" />
                                     </td>
                                     <td>
-                                        <a asp-route="@item.id" class="btn btn-outline-warning">ویرایش</a>
+                                        @item.isActive
+                                    </td>
+                                    <td>
+                                       @item.isAdmin
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="EditUser" class="btn btn-outline-warning">ویرایش</a>
                                     </td>
                                     <td>
                                         <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="DeleteUser" class="btn btn-outline-danger">حذف</a>
                                     </td>
-
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="FullDeleteUser" class="btn btn-outline-danger"> حذف کامل</a>
+                                    </td>
                                 </tr>
                             }
 
