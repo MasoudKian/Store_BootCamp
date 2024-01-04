@@ -11,7 +11,6 @@ namespace Store_BootCamp.Application.ViewModels.Account
         public int id { get; set; }
         public string email { get; set; }
         public string username { get; set; }
-        public string FullName { get; set; }
         public string img { get; set; }
         public bool isAdmin { get; set; }
         public bool isActive { get; set; }

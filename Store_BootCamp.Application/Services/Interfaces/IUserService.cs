@@ -15,6 +15,5 @@ namespace Store_BootCamp.Application.Services.Interfaces
         public ICollection<UserViewmodel> GetUsers();
         User GetUserByEmail(ForgotPasswordViewModel forgot);
         User GetUserByActiveCode(string activeCode);
-        public void FullDelete(int id);
     }
 }
