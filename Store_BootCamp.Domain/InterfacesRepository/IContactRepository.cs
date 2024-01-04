@@ -6,6 +6,8 @@ namespace Store_BootCamp.Domain.InterfacesRepository
     {
         ContactUs GetContactUsById(int id);
 
+        ContactUs GetContactUsByEmail(string email);
+
         List<ContactUs> GetAllContactUs(); 
 
         int AddContactUs(ContactUs contactUs);

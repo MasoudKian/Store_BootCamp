@@ -22,6 +22,12 @@ namespace Store_BootCamp.Infra.Data.Repository
             return contactUs;
         }
 
+        public ContactUs GetContactUsByEmail(string email)
+        {
+            var contactUsEmail = _context.ContactUs.Where(c => c.Email == email).Single();
+            return contactUsEmail;
+        }
+
         public List<ContactUs> GetAllContactUs()
         {
             var list = _context.ContactUs.ToList();

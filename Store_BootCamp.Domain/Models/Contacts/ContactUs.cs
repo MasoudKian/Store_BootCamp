@@ -14,6 +14,8 @@ namespace Store_BootCamp.Domain.Models.Contacts
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string? UserIp { get; set; }
 
+        public int? ResponseId { get; set; } 
+
         [Display(Name = "موضوع تیکت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
@@ -45,8 +47,9 @@ namespace Store_BootCamp.Domain.Models.Contacts
 
         #region Relations
 
-        [ForeignKey("UserId")]
         public User User { get; set; }
+
+        public ContactUsResponse Response { get; set; }
 
         #endregion
     }

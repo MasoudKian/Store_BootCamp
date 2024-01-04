@@ -94,10 +94,6 @@ namespace Store_BootCamp.Web.Controllers
                 var email = _userService.IsEmail(login.Email) ;
                 if (user.IsActive)
                 {
-                    if (TempData.ContainsKey("ResetPasswordSuccess") && (bool)TempData["ResetPasswordSuccess"])
-                    {
-                        ViewBag.ResetPasswordSuccess = true;
-                    }
                     var claims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
@@ -190,8 +186,6 @@ namespace Store_BootCamp.Web.Controllers
             string hashNewPass = PasswordHelper.EncodePasswordSha256(reset.Password);
             user.Password = hashNewPass;
             _userService.UpdateUser(user);
-
-            TempData["ResetPasswordSuccess"] = true;
 
             return Redirect("/Login");
         }
