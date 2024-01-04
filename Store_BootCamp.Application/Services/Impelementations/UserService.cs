@@ -29,7 +29,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public User IsEmail(string email)
         {
-            var isEmail = _userRepository.GetAll().Single(e=>e.Email == email);
+            var isEmail = _userRepository.GetAll().Single(e => e.Email == email);
             return isEmail;
         }
         public bool IsExistUserName(string userName)
@@ -74,7 +74,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public bool ActiveCode(string activeCode)
         {
             var user = _userRepository.GetAll()
-                .SingleOrDefault(u=>u.ActiveEmailCode == activeCode);
+                .SingleOrDefault(u => u.ActiveEmailCode == activeCode);
 
             if (user == null || user.IsActive)
                 return false;
@@ -95,17 +95,41 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public ICollection<UserViewmodel> GetUsers()
         {
             var users = _userRepository.GetAll();
-            var userlist= new List<UserViewmodel>();
-            foreach (var user in users) {
-            var userviewmodel = new UserViewmodel();
-                userviewmodel.id= user.Id;
+            var userlist = new List<UserViewmodel>();
+            foreach (var user in users)
+            {
+                var userviewmodel = new UserViewmodel();
+                userviewmodel.id = user.Id;
                 userviewmodel.img = user.UserImage;
                 userviewmodel.email = user.Email;
                 userviewmodel.username = user.UserName;
-                userviewmodel.isAdmin= user.IsAdmin;
+                userviewmodel.isAdmin = user.IsAdmin;
+                userviewmodel.fullname = user.Fullname;
                 userlist.Add(userviewmodel);
             }
             return userlist;
+        }
+
+        public void DeleteUser(int id)
+        {
+            _userRepository.DeleteUser(id);
+        }
+
+        public UserViewmodel GetUserById(int id)
+        {
+            var userViewModel = new UserViewmodel();
+            var User = _userRepository.GetById(id);
+            userViewModel.id = User.Id;
+            userViewModel.email = User.Email;
+            userViewModel.username = User.UserName;
+            userViewModel.img = User.UserImage;
+
+            return userViewModel;
+        }
+
+        public void saveChanges()
+        {
+            _userRepository.SaveChange();
         }
     }
 }
