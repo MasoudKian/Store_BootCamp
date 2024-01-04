@@ -132,5 +132,10 @@ namespace Store_BootCamp.Application.Services.Impelementations
         {
             _userRepository.SaveChange();
         }
+
+        public void FullDeleteUser(int id)
+        {
+            _userRepository.FullDeletUser(id);
+        }
     }
 }

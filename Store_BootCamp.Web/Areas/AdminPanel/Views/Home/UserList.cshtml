@@ -1,0 +1,69 @@
+﻿@model ICollection<Store_BootCamp.Application.ViewModels.Account.UserViewmodel>
+
+
+
+<div style="margin-right:13%" class="container">
+    <div class="page-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="well with-header  with-footer">
+                    <div class="header bg-blue">
+                        Simple Table With Hover
+                    </div>
+                    <table class="table table-hover">
+
+                        <thead class="bordered-darkorange">
+
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Family
+                                </th>
+                                <th>
+                                    Username
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.username
+                                    </td>
+                                    <td>
+                                        @item.email
+                                    </td>
+                                    <td>
+                                        @item.fullname
+                                    </td>
+                                    <td>
+                                        <img style="width:10%" src="~/UserImage/@item.img" />
+                                    </td>
+                                    <td>
+                                        <a asp-route="@item.id" class="btn btn-outline-warning">ویرایش</a>
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="DeleteUser" class="btn btn-outline-danger">حذف</a>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
