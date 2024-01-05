@@ -10,6 +10,7 @@ namespace Store_BootCamp.Application.ViewModels.Account
     public class UserViewmodel
     {
         public int id { get; set; }
+
         [Required(ErrorMessage = "ایمیل خالی است")]
         public string email { get; set; }
         [Required(ErrorMessage = "نام کاربری خالی است")]
@@ -19,8 +20,11 @@ namespace Store_BootCamp.Application.ViewModels.Account
 
         public string fullname { get; set; }
 
+        public bool IsAdmin { get; set; }
+
+
         public string img { get; set; }
-        public bool isAdmin { get; set; }
+
         public bool isActive { get; set; }
         [Required(ErrorMessage = "رمز عبور خالی است")]
 

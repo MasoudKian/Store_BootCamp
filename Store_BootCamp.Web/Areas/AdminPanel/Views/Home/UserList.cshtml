@@ -52,13 +52,13 @@
                                         @item.fullname
                                     </td>
                                     <td>
-                                        <img style="width:10%" src="~/UserImage/@item.img" />
+                                        <img style="width:10%" src="~/uploads/@item.img" />
                                     </td>
                                     <td>
-                                        @item.isActive
+                                        @item.isActive 
                                     </td>
                                     <td>
-                                       @item.isAdmin
+                                       @item.IsAdmin
                                     </td>
                                     <td>
                                         <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="EditUser" class="btn btn-outline-warning">ویرایش</a>

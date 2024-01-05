@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NuGet.DependencyResolver;
 using Store_BootCamp.Application.Generators;
 using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.Account;
 using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
-
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
     public class HomeController : Controller
     {
+        private IHostingEnvironment _environment;
         private readonly IUserService userRepository;
-        public HomeController(IUserService user)
+        public HomeController(IUserService user, IHostingEnvironment environment)
         {
             userRepository = user;
+            _environment = environment;
+
         }
         public IActionResult Index()
         {
@@ -39,30 +43,29 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
         [HttpGet]
         public IActionResult EditUser(int id)
         {
-            var user = userRepository.GetById(id);
-            var userViewModel = new UserViewmodel();
-            userViewModel.email = user.Email;
-            userViewModel.isActive = user.IsActive;
-            userViewModel.username = user.UserName;
-            userViewModel.fullname = user.Fullname;
-            userViewModel.img = user.UserImage;
-            userViewModel.isAdmin = user.IsAdmin;
+            var user = userRepository.GetUserById(id);
 
-
-            return View(userViewModel);
+            return View(user);
         }
         [HttpPost]
-        public IActionResult EditUser(UserViewmodel user)
+        public IActionResult EditUser(UserViewmodel user, IFormFile ImgUp)
         {
-            var EditedUser = userRepository.GetById(user.id);
-            EditedUser.Email = user.email;
-            EditedUser.IsActive = user.isActive;
-            EditedUser.UserImage = user.img;
-            EditedUser.Fullname = user.fullname;
-            EditedUser.UserName = user.username;
-            EditedUser.IsAdmin = user.isAdmin;
+            #region UploadImg
 
-            userRepository.UpdateUser(EditedUser);
+            if (ImgUp != null)
+            {
+                user.img = Guid.NewGuid() + Path.GetExtension(ImgUp.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", user.img);
+                using (var stram = new FileStream(imagePath, FileMode.Create))
+                {
+                    ImgUp.CopyTo(stram);
+                }
+            }
+
+
+            #endregion
+
+            userRepository.EditUser(user);
             userRepository.saveChanges();
             return RedirectToAction("UserList");
         }
@@ -73,31 +76,37 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddUserByAdmin(UserViewmodel userViewmodel)
+        public IActionResult AddUserByAdmin(UserViewmodel userViewmodel, IFormFile ImgUp)
         {
+            #region uploadImg
+
+            if (ImgUp != null)
+            {
+                userViewmodel.img = Guid.NewGuid() + Path.GetExtension(ImgUp.FileName);
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", userViewmodel.img);
+                using (var stram = new FileStream(imagePath, FileMode.Create))
+                {
+                    ImgUp.CopyTo(stram);
+                }
+            }
+
+
+            #endregion
+
             var user = new User();
 
-            if (userRepository.IsExistEmail(userViewmodel.email)==true)
+            if (userRepository.IsExistEmail(userViewmodel.email) == true)
             {
                 return NotFound();
             }
-            if (userViewmodel.img == null)
+            if (userViewmodel != null)
             {
-                user.UserImage = "Defualt.png";
-            }
-            else
-            {
-                user.UserImage = userViewmodel.img;
-            }
-            if (userViewmodel != null )
-            {
-             
-
                 user.Email = userViewmodel.email;
                 user.Fullname = userViewmodel.fullname;
                 user.UserName = userViewmodel.username;
                 user.Password = userViewmodel.password;
                 user.ActiveEmailCode = NameGenerator.GenerateUniqEmailCode();
+                user.UserImage = userViewmodel.img;
                 userRepository.RegisterUser(user);
                 userRepository.saveChanges();
                 return RedirectToAction("UserList");
@@ -107,5 +116,6 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 
             return View();
         }
+
     }
 }

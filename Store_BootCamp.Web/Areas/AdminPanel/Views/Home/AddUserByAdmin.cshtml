@@ -4,7 +4,7 @@
 
 
         <div class="widget-body col-4">
-            <form id="registrationForm" method="post" class="form-horizontal bv-form" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh" novalidate="novalidate">
+            <form id="registrationForm" method="post" enctype="multipart/form-data" class="form-horizontal bv-form" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh" novalidate="novalidate">
 
                 <div class="form-group has-feedback p-3">
                     <input asp-for="email" type="email" class="form-control mt-3" placeholder="email">
@@ -16,7 +16,7 @@
                     <input asp-for="fullname" type="text" class="form-control mt-3" placeholder="fullname">
                     <span asp-validation-for="fullname" class="text-danger"></span>
 
-                    <input asp-for="img" type="file" class="form-control mt-3">
+                    <input name="ImgUp" type="file" class="form-control mt-3">
                     <span asp-validation-for="img" class="text-danger"></span>
 
                     <input asp-for="password" type="password" class="form-control mt-3" placeholder="password">

@@ -8,6 +8,7 @@ namespace Store_BootCamp.Infra.Data.Repository
     {
         #region Constructor
 
+        private readonly string wwwrootDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\uploads");
         private readonly StoreDBContext _dbContext;
         public UserRepository(StoreDBContext context)
         {
@@ -37,6 +38,9 @@ namespace Store_BootCamp.Infra.Data.Repository
         }
         public int AddUser(User user)
         {
+            //var  imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(user.UserImage.FileName);
+            //user.UserImage.AddImageToServer(imageName, PathTool.ProductImageUploadPath, null, null);
+
             _dbContext.Add(user);
             user.CreateDate = DateTime.Now;
             _dbContext.SaveChanges();
@@ -44,8 +48,7 @@ namespace Store_BootCamp.Infra.Data.Repository
         }
         public void UpdateUser(User user)
         {
-            _dbContext.Update(user);
-            _dbContext.SaveChanges(true);
+            _dbContext.Users.Update(user);
         }
 
         public void DeleteUser(int id)
@@ -75,7 +78,11 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         public void EditUser(User user)
         {
+         
+
             _dbContext.Users.Update(user);
         }
+
+      
     }
 }
