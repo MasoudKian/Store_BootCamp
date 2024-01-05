@@ -1,4 +1,5 @@
-﻿@model List<Store_BootCamp.Domain.Models.Contacts.ContactUs>
+﻿@using Store_BootCamp.Application.Convertor
+@model List<Store_BootCamp.Domain.Models.Contacts.ContactUs>
 @{
     ViewData["Title"] = "پیام ها";
 }
@@ -57,27 +58,25 @@
                                             {
                                                 <li class="ticket-item">
                                                     <div class="row">
-                                                        <div class="ticket-user col-lg-3 col-sm-3">
-                                                            <img src="/assets/img/avatars/adam-jansen.jpg" class="user-avatar">
+                                                        <div class="ticket-user col-lg-2 col-sm-2">
                                                             <span class="user-at">نام و نام خانوادگی : </span>
                                                             <span class="user-name">@message.FullName</span>
                                                         </div>
-                                                        <div class="ticket-user col-lg-3 col-sm-3">
-                                                            <img src="/assets/img/avatars/adam-jansen.jpg" class="user-avatar">
+                                                        <div class="ticket-user col-lg-4 col-sm-4">
                                                             <span class="user-at">با ایمیل :  </span>
                                                             <span class="user-name">@message.Email</span>
                                                         </div>
-                                                        <div class="ticket-time  col-lg-3 col-sm-3 col-xs-3">
+                                                        <div class="ticket-user col-lg-4 col-sm-4">
+                                                            <span class="user-at">شماره تماس :  </span>
+                                                            <span class="user-name">@message.Phone</span>
+                                                        </div>
+                                                        <div class="ticket-time  col-lg-2 col-sm-2 col-xs-2">
                                                             <div class="divider hidden-md hidden-sm hidden-xs"></div>
                                                             <i class="fa fa-clock-o"></i>
                                                             <span class="user-at">در ساعت : </span>
-                                                            <span class="time">@message.CreateDate</span>
+                                                            <span class="time">@message.CreateDate.ToShamsi()</span>
                                                         </div>
-                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
-                                                            <span class="divider hidden-xs"></span>
-                                                            <span class="type">موضوع پیام </span>
-                                                            <span class="time">@message.Title</span>
-                                                        </div>
+    
                                                         <a href="#" class="show-details" data-toggle="modal" data-target="#messageModal-@message.Id" data-message-id="@message.Id">
                                                             <div class="ticket-state bg-palegreen">
                                                                 <i class="fa fa-info"></i>
