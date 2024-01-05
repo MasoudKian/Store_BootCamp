@@ -78,11 +78,12 @@
                                                             <span class="type">موضوع پیام </span>
                                                             <span class="time">@message.Title</span>
                                                         </div>
-                                                        <a href="#" class="show-details" data-toggle="modal" data-target="#messageModal" data-message-id="@message.Id">
+                                                        <a href="#" class="show-details" data-toggle="modal" data-target="#messageModal-@message.Id" data-message-id="@message.Id">
                                                             <div class="ticket-state bg-palegreen">
                                                                 <i class="fa fa-info"></i>
                                                             </div>
                                                         </a>
+
                                                     </div>
                                                 </li>
                                             }
@@ -102,45 +103,60 @@
     <!-- /Page Body -->
 </div>
 <!-- Modal -->
-<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="messageModalLabel">جزئیات پیام</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @if (Model!=null && Model.Any())
-                {
-                    @foreach (var desc in Model)
-                    {
+@if (Model != null && Model.Any())
+{
+    @foreach (var message in Model)
+    {
+        <div class="modal fade" id="messageModal-@message.Id" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">جزئیات پیام</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
                         <label>موضوع پیام</label>
-                        <h3>@desc.Title</h3>
+                        <h3>@message.Title</h3>
                         <br />
                         <label>متن پیام</label>
-                        <p>@desc.Description.</p>
-                    }
-                }
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                        <p>@message.Description.</p>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
+    }
+}
 @section scripts {
     <script>
         $(document).ready(function () {
             $('.show-details').click(function () {
                 var messageId = $(this).data('message-id');
-                // اکنون می‌توانید با استفاده از messageId اطلاعات مربوط به پیام را از سمت سرور دریافت کنید
-                // سپس این اطلاعات را در مودال نمایش دهید
-                // برای نمونه، اینجا یک الرت به عنوان مثال استفاده شده است
-                alert('شناسه پیام: ' + messageId);
+
+                // ارسال درخواست به سمت سرور برای دریافت اطلاعات پیام
+                $.ajax({
+                    url: '@Url.Action("GetMessageDetails", "ContactUs")', // مسیر اکشن مربوط به دریافت اطلاعات پیام
+                    type: 'GET',
+                    data: { id: messageId },
+                    success: function (data) {
+                        // نمایش اطلاعات پیام در مودال
+                        $('#messageModalLabel').text('جزئیات پیام');
+                        $('#messageTitle').text('موضوع پیام: ' + data.Title);
+                        $('#messageDescription').text('متن پیام: ' + data.Description);
+                        $('#messageModal').modal('show');
+                    },
+                    error: function () {
+                        // اگر درخواست با مشکل مواجه شود
+                        alert('خطا در دریافت اطلاعات پیام.');
+                    }
+                });
             });
         });
     </script>

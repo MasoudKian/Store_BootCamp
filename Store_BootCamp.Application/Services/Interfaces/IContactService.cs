@@ -10,5 +10,7 @@ namespace Store_BootCamp.Application.Services.Interfaces
         void RespondToContactUsByEmail(string userEmail, ContactUsResponse response);
 
         List<ContactUs> GetListContactUs();
+
+        ContactUs GetContactUsById(int id);
     }
 }

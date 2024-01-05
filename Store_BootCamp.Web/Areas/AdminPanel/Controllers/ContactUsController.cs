@@ -18,5 +18,13 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 
             return View(messageList);
         }
+
+        [HttpGet]
+        public IActionResult GetMessageDetails(int id)
+        {
+            var contactUs = _contactService.GetContactUsById(id);
+            return Json(contactUs); // بازگرداندن اطلاعات به صورت JSON
+        }
+
     }
 }

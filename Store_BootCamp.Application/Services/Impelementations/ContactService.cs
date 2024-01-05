@@ -38,6 +38,11 @@ namespace Store_BootCamp.Application.Services.Impelementations
             return _contactRepository.GetAllContactUs();
         }
 
+        public ContactUs GetContactUsById(int id)
+        {
+            var contactUsId = _contactRepository.GetContactUsById(id);
+            return contactUsId;
+        }
         public void RespondToContactUsByEmail(string userEmail, ContactUsResponse response)
         {
 
