@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Store_BootCamp.Domain.Models.Contacts.ContactUs>
 @{
     ViewData["Title"] = "پیام ها";
 }
@@ -38,7 +38,7 @@
     <!-- Page Body -->
     <div class="page-body">
 
-        <div class="row">    
+        <div class="row">
             <div class="col-lg-12 col-sm-12 col-xs-12">
 
                 <div class="row">
@@ -51,29 +51,43 @@
                             <div class="widget-body no-padding">
                                 <div class="tickets-container">
                                     <ul class="tickets-list">
+                                        @if (Model != null && Model.Any())
+                                        {
+                                            @foreach (var message in Model)
+                                            {
+                                                <li class="ticket-item">
+                                                    <div class="row">
+                                                        <div class="ticket-user col-lg-3 col-sm-3">
+                                                            <img src="/assets/img/avatars/adam-jansen.jpg" class="user-avatar">
+                                                            <span class="user-at">نام و نام خانوادگی : </span>
+                                                            <span class="user-name">@message.FullName</span>
+                                                        </div>
+                                                        <div class="ticket-user col-lg-3 col-sm-3">
+                                                            <img src="/assets/img/avatars/adam-jansen.jpg" class="user-avatar">
+                                                            <span class="user-at">با ایمیل :  </span>
+                                                            <span class="user-name">@message.Email</span>
+                                                        </div>
+                                                        <div class="ticket-time  col-lg-3 col-sm-3 col-xs-3">
+                                                            <div class="divider hidden-md hidden-sm hidden-xs"></div>
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <span class="user-at">در ساعت : </span>
+                                                            <span class="time">@message.CreateDate</span>
+                                                        </div>
+                                                        <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+                                                            <span class="divider hidden-xs"></span>
+                                                            <span class="type">موضوع پیام </span>
+                                                            <span class="time">@message.Title</span>
+                                                        </div>
+                                                        <a href="#">
+                                                            <div class="ticket-state bg-palegreen">
+                                                                <i class="fa fa-info"></i>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
 
-                                        <li class="ticket-item">
-                                            <div class="row">
-                                                <div class="ticket-user col-lg-6 col-sm-12">
-                                                    <img src="/assets/img/avatars/adam-jansen.jpg" class="user-avatar">
-                                                    <span class="user-name">آدام جانسون</span>
-                                                    <span class="user-at">از</span>
-                                                    <span class="user-company">مایکروسافت</span>
-                                                </div>
-                                                <div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
-                                                    <div class="divider hidden-md hidden-sm hidden-xs"></div>
-                                                    <i class="fa fa-clock-o"></i>
-                                                    <span class="time">1 ساعت پیش</span>
-                                                </div>
-                                                <div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
-                                                    <span class="divider hidden-xs"></span>
-                                                    <span class="type">مشکل</span>
-                                                </div>
-                                                <div class="ticket-state bg-palegreen">
-                                                    <i class="fa fa-check"></i>
-                                                </div>
-                                            </div>
-                                        </li>
 
                                     </ul>
                                 </div>
@@ -85,7 +99,7 @@
 
             </div>
         </div>
-        
+
     </div>
     <!-- /Page Body -->
 </div>

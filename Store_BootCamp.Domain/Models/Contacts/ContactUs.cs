@@ -7,6 +7,7 @@ namespace Store_BootCamp.Domain.Models.Contacts
     public class ContactUs : BaseEntity
     {
         #region properties
+
         public int? UserId { get; set; }
         public int? ResponseId { get; set; } 
 

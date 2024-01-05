@@ -8,5 +8,7 @@ namespace Store_BootCamp.Application.Services.Interfaces
         void CreateContactUs(CreateContactUsViewModel contact , string userIp , int ? userId);
 
         void RespondToContactUsByEmail(string userEmail, ContactUsResponse response);
+
+        List<ContactUs> GetListContactUs();
     }
 }

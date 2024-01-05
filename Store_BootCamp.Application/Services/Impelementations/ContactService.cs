@@ -31,12 +31,18 @@ namespace Store_BootCamp.Application.Services.Impelementations
             };
 
             _contactRepository.AddContactUs(newContact); 
+        }
 
+        public List<ContactUs> GetListContactUs()
+        {
+            return _contactRepository.GetAllContactUs();
         }
 
         public void RespondToContactUsByEmail(string userEmail, ContactUsResponse response)
         {
 
         }
+
+        
     }
 }
