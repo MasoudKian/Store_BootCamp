@@ -78,7 +78,7 @@
                                                             <span class="type">موضوع پیام </span>
                                                             <span class="time">@message.Title</span>
                                                         </div>
-                                                        <a href="#">
+                                                        <a href="#" class="show-details" data-toggle="modal" data-target="#messageModal" data-message-id="@message.Id">
                                                             <div class="ticket-state bg-palegreen">
                                                                 <i class="fa fa-info"></i>
                                                             </div>
@@ -87,8 +87,6 @@
                                                 </li>
                                             }
                                         }
-
-
                                     </ul>
                                 </div>
                             </div>
@@ -103,4 +101,47 @@
     </div>
     <!-- /Page Body -->
 </div>
+<!-- Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">جزئیات پیام</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Model!=null && Model.Any())
+                {
+                    @foreach (var desc in Model)
+                    {
+                        <label>موضوع پیام</label>
+                        <h3>@desc.Title</h3>
+                        <br />
+                        <label>متن پیام</label>
+                        <p>@desc.Description.</p>
+                    }
+                }
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.show-details').click(function () {
+                var messageId = $(this).data('message-id');
+                // اکنون می‌توانید با استفاده از messageId اطلاعات مربوط به پیام را از سمت سرور دریافت کنید
+                // سپس این اطلاعات را در مودال نمایش دهید
+                // برای نمونه، اینجا یک الرت به عنوان مثال استفاده شده است
+                alert('شناسه پیام: ' + messageId);
+            });
+        });
+    </script>
+}
