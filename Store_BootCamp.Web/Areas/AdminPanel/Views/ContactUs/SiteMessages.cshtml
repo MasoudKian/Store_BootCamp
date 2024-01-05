@@ -76,7 +76,7 @@
                                                             <span class="user-at">در ساعت : </span>
                                                             <span class="time">@message.CreateDate.ToShamsi()</span>
                                                         </div>
-    
+
                                                         <a href="#" class="show-details" data-toggle="modal" data-target="#messageModal-@message.Id" data-message-id="@message.Id">
                                                             <div class="ticket-state bg-palegreen">
                                                                 <i class="fa fa-info"></i>
@@ -125,8 +125,13 @@
 
 
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <div class="modal-footer col-12">
+                        <span>
+                            <button type="button" class="btn btn-danger " data-dismiss="modal">بستن</button>
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-success " data-dismiss="modal">پاسخ</button>
+                        </span>
                     </div>
                 </div>
             </div>
