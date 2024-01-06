@@ -55,9 +55,7 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
                 
                 _contactService.ReplyToContact(replyViewModel, "masoudkiannezhad@gmail.com");
 
-                
-                
-                    ViewBag.SuccessMessage = "پاسخ به پیام با موفقیت ارسال شد.";
+                    ViewBag.SuccessMessage = true;
                 
 
                 return View(replyViewModel);

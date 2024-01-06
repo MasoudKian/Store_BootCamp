@@ -53,10 +53,10 @@
                                         <span class="widget-caption themesecondary">
                                             پاسخ پیام به ایمیل : @Model.Email
                                         </span>
-                                        @if (ViewBag.SuccessMessage != null)
+                                        @if (ViewBag.SuccessMessage ==true)
                                         {
-                                            <div>
-                                                <p>پاسخ ارسال شد</p>
+                                            <div class="success">
+                                                <p class="text-success">پاسخ ارسال شد</p>
                                             </div>
 
                                         }

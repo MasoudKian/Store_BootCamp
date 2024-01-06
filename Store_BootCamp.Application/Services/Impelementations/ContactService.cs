@@ -63,7 +63,9 @@ namespace Store_BootCamp.Application.Services.Impelementations
             var response = new ContactUsResponse
             {
                 ResponseMessage = replyViewModel.ResponseMessage,
-                ContactUs = contactUs
+                ContactUs = contactUs,
+                EmailUser = replyViewModel.Email
+
             };
 
             contactUs.Response = response;
@@ -71,7 +73,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
 
             string body = _viewRender.RenderToStringAsync("_Answer", response);
-            SendEmail.Send(contactUs.Email, "پاسخ به پیام شما", body);
+            SendEmail.SendAnswer(contactUs.Email, "پاسخ به پیام شما", body);
         }
     }
 }

@@ -8,6 +8,9 @@ namespace Store_BootCamp.Domain.Models.Contacts
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string? ResponseMessage { get; set; }
 
+        [Display(Name = "ایمیل کاربر")]
+        public string EmailUser { get; set; }
+
         #region Relations
         public ContactUs? ContactUs { get; set; }
 

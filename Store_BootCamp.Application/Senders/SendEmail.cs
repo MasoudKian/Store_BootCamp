@@ -29,5 +29,26 @@ namespace Store_BootCamp.Application.Senders
             SmtpServer.Send(mail);
 
         }
+        public static void SendAnswer(string to, string subject, string body)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("masoudkiannezhad@gmail.com", "پاسخ به پیام شما");
+            mail.To.Add(to);
+            mail.Subject = subject;
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+
+            //System.Net.Mail.Attachment attachment;
+            // attachment = new System.Net.Mail.Attachment("c:/textfile.txt");
+            // mail.Attachments.Add(attachment);
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("masoudkiannezhad@gmail.com", "dsqq hntb gyyc xcvy");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+
+        }
     }
 }
