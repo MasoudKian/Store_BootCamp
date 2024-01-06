@@ -129,7 +129,9 @@
                         <span>
                             <button type="button" class="btn btn-danger " data-dismiss="modal">بستن</button>
                         </span>
-
+                        <span>
+                            <button type="button" class="btn btn-success " data-dismiss="modal">پاسخ</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -152,19 +154,6 @@
                         $('#messageModalLabel').text('جزئیات پیام');
                         $('#messageTitle').text('موضوع پیام: ' + data.Title);
                         $('#messageDescription').text('متن پیام: ' + data.Description);
-
-                        // افزودن دکمه "پاسخ" به مودال
-                        var replyButton = $('<button type="button" class="btn btn-success" id="replyButton">پاسخ</button>');
-
-                        // هنگام کلیک بر روی دکمه "پاسخ"، به اکشن پاسخ هدایت شود
-                        replyButton.click(function () {
-                            window.location.href = '@Url.Action("Reply", "ContactUs")?userId=' + data.UserId + '&userEmail=' + data.Email;
-                        });
-
-                        // افزودن دکمه "پاسخ" به فوتر مودال
-                        $('#messageModal .modal-footer').append(replyButton);
-
-                        // نمایش مودال
                         $('#messageModal').modal('show');
                     },
                     error: function () {
