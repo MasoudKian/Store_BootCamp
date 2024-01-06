@@ -6,10 +6,11 @@ namespace Store_BootCamp.Domain.Models.Contacts
     {
         [Display(Name = "جواب پیام")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        public string ResponseMessage { get; set; }
+        public string? ResponseMessage { get; set; }
 
         #region Relations
-        public ContactUs ContactUs { get; set; }
+        public ContactUs? ContactUs { get; set; }
+
         #endregion
     }
 }

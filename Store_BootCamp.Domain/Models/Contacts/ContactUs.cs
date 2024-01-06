@@ -48,9 +48,9 @@ namespace Store_BootCamp.Domain.Models.Contacts
 
         #region Relations
 
-        public User User { get; set; }
+        public User? User { get; set; }
 
-        public ContactUsResponse Response { get; set; }
+        public ContactUsResponse? Response { get; set; }
 
         #endregion
     }
