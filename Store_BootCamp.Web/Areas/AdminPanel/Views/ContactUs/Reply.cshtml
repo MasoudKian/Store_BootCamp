@@ -1,0 +1,90 @@
+﻿@model Store_BootCamp.Application.ViewModels.ContactUs.ReplyViewModel
+@{
+    ViewData["Title"] = "پاسخ پیام";
+}
+
+<div class="page-content">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/AdminPanel">خانه</a>
+            </li>
+            <li class="active">@ViewData["Title"]</li>
+        </ul>
+    </div>
+    <!-- /Page Breadcrumb -->
+    <!-- Page Header -->
+    <div class="page-header position-relative">
+        <div class="header-title">
+            <h1>
+                @ViewData["Title"]
+            </h1>
+        </div>
+        <!--Header Buttons-->
+        <div class="header-buttons">
+
+            <a class="refresh" id="refresh-toggler" href="">
+                <i class="glyphicon glyphicon-refresh"></i>
+            </a>
+            <a class="fullscreen" id="fullscreen-toggler" href="#">
+                <i class="glyphicon glyphicon-fullscreen"></i>
+            </a>
+        </div>
+        <!--Header Buttons End-->
+    </div>
+    <!-- /Page Header -->
+    <!-- Page Body -->
+    <div class="page-body">
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+
+                <form asp-action="Reply" method="post">
+                    <input type="hidden" asp-for="ContactUsId" />
+                    <input type="hidden" asp-for="Email" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-themesecondary">
+                                        <i class="widget-icon fa fa-tags themesecondary"></i>
+                                        <span class="widget-caption themesecondary">
+                                            پاسخ پیام به ایمیل : @Model.Email
+                                        </span>
+                                        @if (ViewBag.SuccessMessage != null)
+                                        {
+                                            <div>
+                                                <p>پاسخ ارسال شد</p>
+                                            </div>
+
+                                        }
+                                    </div><!--Widget Header-->
+                                    <div class="widget-body no-padding">
+                                        <div class="tickets-container">
+
+                                            <div class="form-group">
+                                                <label class="control-label">پاسخ</label>
+                                                <textarea class="form-control" asp-for="ResponseMessage" rows="5"></textarea>
+                                                <span asp-validation-for="ResponseMessage"></span>
+
+                                            </div>
+                                            <button type="submit" class="btn btn-success">ارسال پاسخ</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Body -->
+</div>
+

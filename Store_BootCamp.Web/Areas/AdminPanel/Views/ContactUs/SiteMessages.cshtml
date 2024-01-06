@@ -123,14 +123,13 @@
                         <label>متن پیام</label>
                         <p>@message.Description.</p>
 
-
                     </div>
                     <div class="modal-footer col-12">
                         <span>
                             <button type="button" class="btn btn-danger " data-dismiss="modal">بستن</button>
                         </span>
                         <span>
-                            <button type="button" class="btn btn-success " data-dismiss="modal">پاسخ</button>
+                            <a asp-area="AdminPanel" asp-controller="ContactUs" asp-action="Reply" asp-route-id="@message.Id" class="btn btn-success">پاسخ</a>
                         </span>
                     </div>
                 </div>
@@ -143,21 +142,17 @@
         $(document).ready(function () {
             $('.show-details').click(function () {
                 var messageId = $(this).data('message-id');
-
-                // ارسال درخواست به سمت سرور برای دریافت اطلاعات پیام
                 $.ajax({
-                    url: '@Url.Action("GetMessageDetails", "ContactUs")', // مسیر اکشن مربوط به دریافت اطلاعات پیام
+                    url: '@Url.Action("GetMessageDetails", "ContactUs")',
                     type: 'GET',
                     data: { id: messageId },
                     success: function (data) {
-                        // نمایش اطلاعات پیام در مودال
                         $('#messageModalLabel').text('جزئیات پیام');
                         $('#messageTitle').text('موضوع پیام: ' + data.Title);
                         $('#messageDescription').text('متن پیام: ' + data.Description);
                         $('#messageModal').modal('show');
                     },
                     error: function () {
-                        // اگر درخواست با مشکل مواجه شود
                         alert('خطا در دریافت اطلاعات پیام.');
                     }
                 });

@@ -1,6 +1,9 @@
-﻿using Store_BootCamp.Application.Services.Interfaces;
+﻿using Store_BootCamp.Application.Convertor;
+using Store_BootCamp.Application.Senders;
+using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.ContactUs;
 using Store_BootCamp.Domain.InterfacesRepository;
+using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Contacts;
 
 namespace Store_BootCamp.Application.Services.Impelementations
@@ -9,9 +12,12 @@ namespace Store_BootCamp.Application.Services.Impelementations
     {
         #region Constructor
         private readonly IContactRepository _contactRepository;
-        public ContactService(IContactRepository contactRepository)
+        private readonly IViewRenderService _viewRender;
+
+        public ContactService(IContactRepository contactRepository,IViewRenderService viewRender)
         {
             _contactRepository = contactRepository;
+            _viewRender = viewRender;
         }
 
         #endregion
@@ -43,11 +49,29 @@ namespace Store_BootCamp.Application.Services.Impelementations
             var contactUsId = _contactRepository.GetContactUsById(id);
             return contactUsId;
         }
-        public void RespondToContactUsByEmail(string userEmail, ContactUsResponse response)
+        public void ReplyToContact(ReplyViewModel replyViewModel, string adminEmail)
         {
+            // دریافت تیکت بر اساس شناسه
+            var contactUs = _contactRepository.GetContactUsById(replyViewModel.ContactUsId);
 
+            if (contactUs == null)
+            {
+                return ;
+            }
+
+            // ثبت پاسخ
+            var response = new ContactUsResponse
+            {
+                ResponseMessage = replyViewModel.ResponseMessage,
+                ContactUs = contactUs
+            };
+
+            contactUs.Response = response;
+            _contactRepository.UpdateContactUs(contactUs);
+
+
+            string body = _viewRender.RenderToStringAsync("_Answer", response);
+            SendEmail.Send(contactUs.Email, "پاسخ به پیام شما", body);
         }
-
-        
     }
 }
