@@ -1,32 +1,58 @@
 ﻿@model Store_BootCamp.Application.ViewModels.Account.UserViewmodel
-<div class="container">
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+}
+<div class="page-body">
     <div class="row">
-        <form class="col-4" asp-area="AdminPanel" asp-controller="Home" asp-action="EditUser" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input asp-for="email" type="email" class="form-control"  aria-describedby="emailHelp" value="@Model.email" placeholder="Enter email">
+        <div class="col col-4">
+            <div class="well with-header  with-footer">
+                <div class="container">
+                  
+                        <form class="test" asp-area="AdminPanel" asp-controller="Home" asp-action="EditUser" method="post" enctype="multipart/form-data">
+                            
+                            <div class="form-group">
+                            <div class="headerform">
+                                ویرایش کاربر
+                            </div>
+                            <label class="fonT">ادرس ایمیل :</label>
+                            <input asp-for="email" type="email" class="form-control fonT" aria-describedby="emailHelp" value="@Model.email" placeholder="ایمیل">
+                            </div>
+                            <div class="form-group">
+                            <label class="fonT">نام کاربری :</label>
+                            <input asp-for="username" type="text" class="form-control fonT" value="@Model.username" placeholder="نام کاربری">
+                            </div>
+                            <div class="form-group">
+                            <label class="fonT">نام و نام خانوادگی :</label>
+                            <input asp-for="fullname" type="text" class="form-control fonT" value="@Model.fullname" placeholder="نام و نام خانوادگی">
+                            </div>
+                            <div class="form-group">
+                            <label class="fonT">عکس پروفایل :</label>
+                                <input name="ImgUp" type="file" class="">
+                            </div>
+                            <div class="form-group">
+                            <label style="display: inline-block" class="fonT">فعال : </label>
+                            <input style="opacity: unset; position: unset;display: inline-block;margin-right:10%" asp-for="isActive" type="checkbox" class="checkbox">
+                            </div>
+
+                            <div class="form-group">
+                            <label style="display: inline-block" class="fonT">حذف  : </label>
+                            <input style="opacity: unset; position: unset;display: inline-block;margin-right:10%" asp-for="isDeleted" type="checkbox" class="checkbox">
+                            </div>
+
+
+                            <div class="form-group">
+                            <label class="fonT">ادمین :</label>
+                                <input style="opacity: unset;position: unset;margin-right:10%" type="checkbox" asp-for="IsAdmin" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">ویرایش</button>
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">User Name</label>
-                <input asp-for="username" type="text" class="form-control"  value="@Model.username" placeholder="UserName">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">fullname</label>
-                <input asp-for="fullname" type="text" class="form-control"   value="@Model.fullname" placeholder="fullname">
-            </div>   
-            <div class="form-group">
-                <label>piv profile :</label>
-                <input name="ImgUp" value="true" type="file" class="checkbox">
-            </div>
-            <div class="form-group">
-                <label style="display: inline-block">is Active : </label>
-                <input style="opacity: unset; position: unset;display: inline-block" asp-for="isActive" type="checkbox"  class="checkbox">
-            </div>
-            <div class="form-group">
-                <label>is Admin :</label>
-                <input style="opacity: unset;position: unset" type="checkbox" asp-for="IsAdmin"  />
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
         </div>
     </div>
+</div>
+
+

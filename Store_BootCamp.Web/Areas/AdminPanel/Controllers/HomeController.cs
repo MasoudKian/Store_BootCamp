@@ -61,9 +61,11 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
                     ImgUp.CopyTo(stram);
                 }
             }
+           
 
 
             #endregion
+            
 
             userRepository.EditUser(user);
             userRepository.saveChanges();

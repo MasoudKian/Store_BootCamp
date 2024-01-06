@@ -1,0 +1,20 @@
+﻿.test {
+    width: 71rem;
+    background-color: white;
+    text-align: justify;
+    margin-top: 55px !important;
+    padding: 40px !important;
+    margin-right:25%;
+    margin-bottom:50px;
+}
+.headerform {
+    background-color: #2dc3e8;
+    color: wheat;
+    font-size: initial;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.fonT {
+font-size:14px !important;
+}

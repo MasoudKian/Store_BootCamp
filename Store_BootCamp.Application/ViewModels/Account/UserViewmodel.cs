@@ -26,6 +26,8 @@ namespace Store_BootCamp.Application.ViewModels.Account
         public string img { get; set; }
 
         public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
+
         [Required(ErrorMessage = "رمز عبور خالی است")]
 
         public string password { get; set; }

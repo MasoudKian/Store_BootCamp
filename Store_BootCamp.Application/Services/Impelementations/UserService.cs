@@ -107,6 +107,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
                 userviewmodel.isActive = user.IsActive;
                 userviewmodel.fullname = user.Fullname;
                 userviewmodel.IsAdmin=user.IsAdmin;
+                userviewmodel.isDeleted = user.IsDelete;
                 userlist.Add(userviewmodel);
             }
             return userlist;
@@ -122,6 +123,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
             var userViewModel = new UserViewmodel();
             var User = _userRepository.GetById(id);
             userViewModel.id = User.Id;
+            userViewModel.isDeleted = User.IsDelete;
             userViewModel.email = User.Email;
             userViewModel.username = User.UserName;
             userViewModel.img = User.UserImage;
@@ -150,14 +152,15 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public void EditUser(UserViewmodel userViewmodel)
         {
             var user=_userRepository.GetById(userViewmodel.id);
-
-            user.UserImage = userViewmodel.img;
+            if (userViewmodel.img!=null) {
+                user.UserImage = userViewmodel.img;
+            }
             user.IsAdmin = userViewmodel.IsAdmin;
             user.IsActive = userViewmodel.isActive;
             user.Email = userViewmodel.email;
             user.Fullname = userViewmodel.fullname;
             user.UserName = userViewmodel.username;
-           
+            user.IsDelete = userViewmodel.isDeleted;
             _userRepository.EditUser(user);
            
         }
