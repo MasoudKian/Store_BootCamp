@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store_BootCamp.Application.Services.Interfaces;
+using Store_BootCamp.Application.ViewModels.ContactUs;
 
 namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 {
@@ -24,6 +25,19 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
         {
             var contactUs = _contactService.GetContactUsById(id);
             return Json(contactUs); // بازگرداندن اطلاعات به صورت JSON
+        }
+
+
+        [HttpGet]
+        public IActionResult Reply(int userId, string userEmail)
+        {
+            var replyViewModel = new ReplyViewModel
+            {
+                UserId = userId,
+                UserEmail = userEmail
+            };
+
+            return View(replyViewModel);
         }
 
     }
