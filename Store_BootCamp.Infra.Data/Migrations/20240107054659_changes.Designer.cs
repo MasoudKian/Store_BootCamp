@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Store_BootCamp.Infra.Data.Context;
 
@@ -11,9 +12,11 @@ using Store_BootCamp.Infra.Data.Context;
 namespace Store_BootCamp.Infra.Data.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    partial class StoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240107054659_changes")]
+    partial class changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,60 +166,6 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.ToTable("ContactUsResponses");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("dateTime")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("tickets");
-                });
-
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.TicketMassage", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("DateAndTime")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TicketForId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("SenderId");
-
-                    b.HasIndex("TicketForId");
-
-                    b.ToTable("ticketsMassage");
-                });
-
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
                 {
                     b.HasOne("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", "Response")
@@ -232,31 +181,12 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
-                {
-                    b.HasOne("Store_BootCamp.Domain.Models.Account.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.TicketMassage", b =>
-                {
-                    b.HasOne("Store_BootCamp.Domain.Models.Account.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-
-                    b.HasOne("Store_BootCamp.Domain.Models.Ticket.Ticket", "TicketFor")
-                        .WithMany("massages")
-                        .HasForeignKey("TicketForId");
-
-                    b.Navigation("Sender");
-
-                    b.Navigation("TicketFor");
-                });
-
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Account.User", b =>
+                {
+                    b.Navigation("ContactUs");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
                 {
                     b.Navigation("ContactUs");
                 });

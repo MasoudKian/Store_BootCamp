@@ -33,6 +33,8 @@ namespace Store_BootCamp.Web.Controllers
 
             _contactService.CreateContactUs(createContact,userIp,User.GetUserId());
 
+            ViewBag.Sucess = true;  
+
             return View(createContact);
         }
     }

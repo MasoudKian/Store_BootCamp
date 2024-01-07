@@ -11,6 +11,7 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
     [Area("AdminPanel")]
     public class HomeController : Controller
     {
+        
         private IHostingEnvironment _environment;
         private readonly IUserService userRepository;
         public HomeController(IUserService user, IHostingEnvironment environment)

@@ -7,12 +7,15 @@ namespace Store_BootCamp.Domain.Models.Contacts
     public class ContactUs : BaseEntity
     {
         #region properties
+
         public int? UserId { get; set; }
+        public int? ResponseId { get; set; } 
 
         [Display(Name = "IP کاربر")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string? UserIp { get; set; }
+
 
         [Display(Name = "موضوع تیکت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -45,8 +48,9 @@ namespace Store_BootCamp.Domain.Models.Contacts
 
         #region Relations
 
-        [ForeignKey("UserId")]
-        public User User { get; set; }
+        public User? User { get; set; }
+
+        public ContactUsResponse? Response { get; set; }
 
         #endregion
     }

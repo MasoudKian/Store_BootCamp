@@ -20,6 +20,8 @@ namespace Store_BootCamp.Infra.Data.Context
 
         #region Contact Us
         public DbSet<ContactUs> ContactUs { get; set; }
+        public DbSet<ContactUsResponse>  ContactUsResponses { get; set; }
+
         #endregion
 
         public DbSet<Ticket> tickets { get; set; }

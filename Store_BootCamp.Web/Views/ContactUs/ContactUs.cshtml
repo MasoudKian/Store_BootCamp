@@ -8,6 +8,14 @@
         <!-- start of box => contact-us -->
         <div class="ui-box bg-white">
             <div class="ui-box-title fs-5 fw-bold">تماس با ما</div>
+            @if (ViewBag.Sucess == true)
+            {
+                <div class="form-element-row mb-5">
+                    <div class="alert alert-success">
+                        <p class="help-block">ایمیل شما به دست ما رسید، در سریعترین زمان ممکن پاسخ شما رو خواهیم داد.</p>
+                    </div>
+                </div>
+            }
             <div class="ui-box-subtitle flex-wrap">
                 لطفاً پیش از ارسال ایمیل یا تماس تلفنی، ابتدا <a href="#" class="link mx-2">پرسش های متداول</a>
                 را
@@ -88,6 +96,7 @@
                                 </div>
                             </div>
                             <!-- end of form-element -->
+                            
                         </div>
                         <div class="col-12 text-end">
                             <button type="submit" class="btn btn-primary px-4">ثبت و ارسال</button>
