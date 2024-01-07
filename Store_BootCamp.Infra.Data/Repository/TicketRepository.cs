@@ -1,14 +1,7 @@
-﻿using Microsoft.VisualBasic;
-using Store_BootCamp.Domain.InterfacesRepository;
+﻿using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Ticket;
 using Store_BootCamp.Infra.Data.Context;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Store_BootCamp.Infra.Data.Repository
 {
