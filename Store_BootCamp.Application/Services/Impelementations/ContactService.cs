@@ -60,7 +60,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
             }
 
             // ثبت پاسخ
-            var response = new ContactUsResponse
+            var response = new ContactUsResponse//
             {
                 ResponseMessage = replyViewModel.ResponseMessage,
                 ContactUs = contactUs,
