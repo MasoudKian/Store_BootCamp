@@ -1,5 +1,6 @@
 ﻿using Store_BootCamp.Domain.Models.Account;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Store_BootCamp.Domain.Models.Tickets
 {
@@ -7,7 +8,7 @@ namespace Store_BootCamp.Domain.Models.Tickets
     {
         #region properties
 
-        public long OwnerId { get; set; }
+        public int OwnerId { get; set; }
 
         [Display(Name = "عنوان")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -30,7 +31,7 @@ namespace Store_BootCamp.Domain.Models.Tickets
         #endregion
 
         #region relations
-
+        [ForeignKey("OwnerId")]
         public User Owner { get; set; }
         public ICollection<TicketMessage> TicketMessages { get; set; }
 
