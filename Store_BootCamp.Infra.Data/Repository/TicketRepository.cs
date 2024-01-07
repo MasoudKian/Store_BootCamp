@@ -28,6 +28,16 @@ namespace Store_BootCamp.Infra.Data.Repository
             }
         }
 
+        public void closeTicket(int ticketId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deleteTicket(int ticketId)
+        {
+            throw new NotImplementedException();
+        }
+
         public User getUserById(int Id)
         {
             var user= _dbContext.Users.FirstOrDefault(x => x.Id == Id);
