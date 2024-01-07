@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Contacts;
+using Store_BootCamp.Domain.Models.Tickets;
 
 namespace Store_BootCamp.Infra.Data.Context
 {
@@ -21,6 +22,22 @@ namespace Store_BootCamp.Infra.Data.Context
         public DbSet<ContactUs> ContactUs { get; set; }
         #endregion
 
+        #region Tikets
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketMessage> TicketMessages { get; set; }
+
         #endregion
+
+        #endregion
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(s => s.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            base.OnModelCreating(modelBuilder);
+        }
     }
+
 }

@@ -1,5 +1,6 @@
 ﻿using Store_BootCamp.Domain.Models.Account;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Store_BootCamp.Domain.Models.Tickets
 {
@@ -7,11 +8,11 @@ namespace Store_BootCamp.Domain.Models.Tickets
     {
         #region properties
 
-        public long OwnerId { get; set; }
+        public int OwnerId { get; set; }
 
         [Display(Name = "عنوان")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        [MaxLength(300, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Title { get; set; }
 
         [Display(Name = "وضعیت تیکت")]
@@ -31,6 +32,7 @@ namespace Store_BootCamp.Domain.Models.Tickets
 
         #region relations
 
+        [ForeignKey("OwnerId")]
         public User Owner { get; set; }
         public ICollection<TicketMessage> TicketMessages { get; set; }
 
