@@ -9,7 +9,7 @@ namespace Store_BootCamp.Domain.InterfacesRepository
 {
     public interface ITicketRepository
     {
-        public void AddTicket(int id);
+        public void AddTicket(int id,string time);
         public void closeTicket(int ticketId);
         public void deleteTicket(int ticketId);
         public User getUserById(int Id);

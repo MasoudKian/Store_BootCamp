@@ -12,12 +12,14 @@ namespace Store_BootCamp.Infra.Data.Repository
         {
             _dbContext = storeDBContext;
         }
-        public void AddTicket(int id)
+        public void AddTicket(int id,string time)
         {
-            var Ticket=new Ticket();
+            var Ticket = new Ticket();
             var user = getUserById(id);
-            if (user != null){
-              Ticket.Owner = user;
+            if (user != null)
+            {
+                Ticket.Owner = user;
+                Ticket.dateTime = time;
             }
         }
 
@@ -33,7 +35,7 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         public User getUserById(int Id)
         {
-            var user= _dbContext.Users.FirstOrDefault(x => x.Id == Id);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == Id);
             return user;
         }
     }

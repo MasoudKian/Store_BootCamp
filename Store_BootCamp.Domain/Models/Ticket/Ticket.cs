@@ -18,8 +18,8 @@ namespace Store_BootCamp.Domain.Models.Ticket
         public int? OwnerId { get; set; }
         public User Owner { get; set; }
 
-        public bool state { get; set; }
-        public DataSetDateTime  dateTime { get; set; }
+        public bool IsClosed { get; set; }
+        public string  dateTime { get; set; }
 
         public ICollection<TicketMassage> massages { get; set; }
     }
