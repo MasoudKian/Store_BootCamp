@@ -19,6 +19,8 @@ namespace Store_BootCamp.Infra.IoC
             //Infra Data
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
+
         }
     }
 }

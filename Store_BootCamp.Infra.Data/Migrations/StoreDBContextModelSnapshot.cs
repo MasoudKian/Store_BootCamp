@@ -163,6 +163,60 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.ToTable("ContactUsResponses");
                 });
 
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("dateTime")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("state")
+                        .HasColumnType("bit");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("tickets");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.TicketMassage", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int>("DateAndTime")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TicketForId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("TicketForId");
+
+                    b.ToTable("ticketsMassage");
+                });
+
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
                 {
                     b.HasOne("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", "Response")
@@ -178,12 +232,31 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Account.User", b =>
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
                 {
-                    b.Navigation("ContactUs");
+                    b.HasOne("Store_BootCamp.Domain.Models.Account.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.TicketMassage", b =>
+                {
+                    b.HasOne("Store_BootCamp.Domain.Models.Account.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
+                    b.HasOne("Store_BootCamp.Domain.Models.Ticket.Ticket", "TicketFor")
+                        .WithMany("massages")
+                        .HasForeignKey("TicketForId");
+
+                    b.Navigation("Sender");
+
+                    b.Navigation("TicketFor");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Account.User", b =>
                 {
                     b.Navigation("ContactUs");
                 });

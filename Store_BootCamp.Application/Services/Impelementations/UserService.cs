@@ -29,7 +29,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public User IsEmail(string email)
         {
-            var isEmail = _userRepository.GetAll().Single(e=>e.Email == email);
+            var isEmail = _userRepository.GetAll().Single(e => e.Email == email);
             return isEmail;
         }
         public bool IsExistUserName(string userName)
@@ -48,6 +48,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public void UpdateUser(User user)
         {
+          
             _userRepository.UpdateUser(user);
         }
 
@@ -74,7 +75,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public bool ActiveCode(string activeCode)
         {
             var user = _userRepository.GetAll()
-                .SingleOrDefault(u=>u.ActiveEmailCode == activeCode);
+                .SingleOrDefault(u => u.ActiveEmailCode == activeCode);
 
             if (user == null || user.IsActive)
                 return false;
@@ -95,17 +96,73 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public ICollection<UserViewmodel> GetUsers()
         {
             var users = _userRepository.GetAll();
-            var userlist= new List<UserViewmodel>();
-            foreach (var user in users) {
-            var userviewmodel = new UserViewmodel();
-                userviewmodel.id= user.Id;
+            var userlist = new List<UserViewmodel>();
+            foreach (var user in users)
+            {
+                var userviewmodel = new UserViewmodel();
+                userviewmodel.id = user.Id;
                 userviewmodel.img = user.UserImage;
                 userviewmodel.email = user.Email;
                 userviewmodel.username = user.UserName;
-                userviewmodel.isAdmin= user.IsAdmin;
+                userviewmodel.isActive = user.IsActive;
+                userviewmodel.fullname = user.Fullname;
+                userviewmodel.IsAdmin=user.IsAdmin;
+                userviewmodel.isDeleted = user.IsDelete;
                 userlist.Add(userviewmodel);
             }
             return userlist;
+        }
+
+        public void DeleteUser(int id)
+        {
+            _userRepository.DeleteUser(id);
+        }
+
+        public UserViewmodel GetUserById(int id)
+        {
+            var userViewModel = new UserViewmodel();
+            var User = _userRepository.GetById(id);
+            userViewModel.id = User.Id;
+            userViewModel.isDeleted = User.IsDelete;
+            userViewModel.email = User.Email;
+            userViewModel.username = User.UserName;
+            userViewModel.img = User.UserImage;
+            userViewModel.isActive=User.IsActive;
+            userViewModel.IsAdmin = User.IsAdmin;
+            userViewModel.fullname = User.Fullname;
+
+            return userViewModel;
+        }
+
+        public User GetById(int id)
+        {
+          return  _userRepository.GetById(id);
+        }
+
+        public void saveChanges()
+        {
+            _userRepository.SaveChange();
+        }
+
+        public void FullDeleteUser(int id)
+        {
+            _userRepository.FullDeletUser(id);
+        }
+
+        public void EditUser(UserViewmodel userViewmodel)
+        {
+            var user=_userRepository.GetById(userViewmodel.id);
+            if (userViewmodel.img!=null) {
+                user.UserImage = userViewmodel.img;
+            }
+            user.IsAdmin = userViewmodel.IsAdmin;
+            user.IsActive = userViewmodel.isActive;
+            user.Email = userViewmodel.email;
+            user.Fullname = userViewmodel.fullname;
+            user.UserName = userViewmodel.username;
+            user.IsDelete = userViewmodel.isDeleted;
+            _userRepository.EditUser(user);
+           
         }
     }
 }
