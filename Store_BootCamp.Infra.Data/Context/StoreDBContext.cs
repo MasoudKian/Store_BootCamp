@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Contacts;
+using Store_BootCamp.Domain.Models.Ticket;
 
 namespace Store_BootCamp.Infra.Data.Context
 {
@@ -20,6 +21,9 @@ namespace Store_BootCamp.Infra.Data.Context
         #region Contact Us
         public DbSet<ContactUs> ContactUs { get; set; }
         #endregion
+
+        public DbSet<Ticket> tickets { get; set; }
+        public DbSet<TicketMassage> ticketsMassage{ get; set; }
 
         #endregion
     }

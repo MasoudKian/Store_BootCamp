@@ -91,7 +91,7 @@ namespace Store_BootCamp.Web.Controllers
 
             if (user != null)
             {
-                var email = _userService.IsEmail(login.Email) ;
+                var email = _userService.IsEmail(login.Email);
                 if (user.IsActive)
                 {
                     var claims = new List<Claim>()
