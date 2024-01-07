@@ -21,16 +21,27 @@ namespace Store_BootCamp.Infra.Data.Repository
         }
         public void AddTicket(int id)
         {
-            var Ticket=new Ticket();
+            var Ticket = new Ticket();
             var user = getUserById(id);
-            if (user != null){
-              Ticket.Owner = user;
+            if (user != null)
+            {
+                Ticket.Owner = user;
             }
+        }
+
+        public void closeTicket(int ticketId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deleteTicket(int ticketId)
+        {
+            throw new NotImplementedException();
         }
 
         public User getUserById(int Id)
         {
-            var user= _dbContext.Users.FirstOrDefault(x => x.Id == Id);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == Id);
             return user;
         }
     }
