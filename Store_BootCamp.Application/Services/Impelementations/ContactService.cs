@@ -51,7 +51,7 @@ namespace Store_BootCamp.Application.Services.Impelementations
         }
         public void ReplyToContact(ReplyViewModel replyViewModel, string adminEmail)
         {
-            // دریافت تیکت بر اساس شناسه
+            
             var contactUs = _contactRepository.GetContactUsById(replyViewModel.ContactUsId);
 
             if (contactUs == null)
@@ -59,8 +59,8 @@ namespace Store_BootCamp.Application.Services.Impelementations
                 return ;
             }
 
-            // ثبت پاسخ
-            var response = new ContactUsResponse//
+            
+            var response = new ContactUsResponse
             {
                 ResponseMessage = replyViewModel.ResponseMessage,
                 ContactUs = contactUs,
@@ -74,6 +74,18 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
             string body = _viewRender.RenderToStringAsync("_Answer", response);
             SendEmail.SendAnswer(contactUs.Email, "پاسخ به پیام شما", body);
+        }
+
+        public ReplyViewModel GetInformationMessageForAdmin(int id, string email)
+        {
+            var contactUs = GetContactUsById(id);
+
+            var replyViewModel = new ReplyViewModel
+            {
+                ContactUsId = contactUs.Id,
+                Email = contactUs.Email,
+            };
+            return replyViewModel;
         }
     }
 }

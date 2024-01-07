@@ -12,5 +12,7 @@ namespace Store_BootCamp.Application.Services.Interfaces
         ContactUs GetContactUsById(int id);
 
         void ReplyToContact(ReplyViewModel replyViewModel, string adminEmail);
+
+        ReplyViewModel GetInformationMessageForAdmin(int id,string email);
     }
 }

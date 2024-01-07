@@ -30,22 +30,10 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
         [HttpGet]
         public ActionResult Reply(int id,string email)
         {
-            
-            var contactUs = _contactService.GetContactUsById(id);
 
-            if (contactUs == null)
-            {
-                
-                return NotFound();
-            }
+            var reply = _contactService.GetInformationMessageForAdmin(id,email);
 
-            var replyViewModel = new ReplyViewModel
-            {
-                ContactUsId = contactUs.Id,
-                Email = contactUs.Email
-            };
-
-            return View(replyViewModel);
+            return View(reply);
         }
         [HttpPost]
         public ActionResult Reply(ReplyViewModel replyViewModel)
