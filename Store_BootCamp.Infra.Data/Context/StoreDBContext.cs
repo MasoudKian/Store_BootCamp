@@ -34,7 +34,6 @@ namespace Store_BootCamp.Infra.Data.Context
             }
 
             base.OnModelCreating(modelBuilder);
-
         }
 
     }
