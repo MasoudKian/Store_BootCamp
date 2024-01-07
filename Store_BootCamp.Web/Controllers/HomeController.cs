@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Store_BootCamp.Web.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Store_BootCamp.Web.Controllers
 {
@@ -15,6 +16,7 @@ namespace Store_BootCamp.Web.Controllers
 
         public IActionResult Index()
         {
+           
             return View();
         }
 

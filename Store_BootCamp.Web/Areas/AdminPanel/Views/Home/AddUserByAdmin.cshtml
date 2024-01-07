@@ -1,0 +1,48 @@
+﻿@model Store_BootCamp.Application.ViewModels.Account.UserViewmodel
+@{
+    ViewData["Title"] = "اضافه کردن کاربر";
+}
+<div class="container">
+    <div class="row">
+
+
+        <div class="widget-body col-4 test">
+            <form id="registrationForm" method="post" enctype="multipart/form-data" class="form-horizontal bv-form" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh" novalidate="novalidate">
+
+                <div class="form-group has-feedback p-3">
+                    <div class="headerform">
+                        اضافه کردن کاربر
+                    </div>
+                    <label class="fonT">ادرس ایمیل :</label>
+                    <input asp-for="email" type="email" class="form-control mt-3 fonT" placeholder="ادرس ایمیل">
+                    <span asp-validation-for="email" class="text-danger"></span>
+
+                    <label style="margin-top:10px" class="fonT">نام کاربری :</label>
+                    <input asp-for="username" type="text" class="form-control mt-3 fonT" placeholder="نام کاربری">
+                    <span asp-validation-for="username" class="text-danger"></span>
+
+                    <label style="margin-top:10px" class="fonT">نام و نام خانوادگی :</label>
+                    <input asp-for="fullname" type="text" class="form-control mt-3 fonT" placeholder="نام و نام خانوادگی">
+                    <span asp-validation-for="fullname" class="text-danger"></span>
+
+                    <label style="margin-top:10px" class="fonT">عکس پروفایل :</label>
+                    <input style="margin-top:10px" name="ImgUp" type="file" class="form-control mt-3 fonT">
+                    <span asp-validation-for="img" class="text-danger"></span>
+
+                    <label style="margin-top:10px" class="fonT">رمز عبور :</label>
+                    <input asp-for="password" type="password" class="form-control mt-3 fonT" placeholder=" رمز عبور">
+                    <span asp-validation-for="password" class="text-danger"></span>
+
+                    <label style="margin-top:10px" class="fonT">تایید رمز عبور :</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control mt-3 fonT" placeholder="تایید رمز عبور">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div style="margin-top:10px" class="form-group">
+                    <div class="col-lg-offset-4 col-lg-8">
+                        <input class="btn btn-palegreen" type="submit" value="ارسال">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

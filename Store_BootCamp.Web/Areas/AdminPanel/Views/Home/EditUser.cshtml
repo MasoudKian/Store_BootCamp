@@ -1,0 +1,58 @@
+﻿@model Store_BootCamp.Application.ViewModels.Account.UserViewmodel
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+}
+<div class="page-body">
+    <div class="row">
+        <div class="col col-4">
+            <div class="well with-header  with-footer">
+                <div class="container">
+                  
+                        <form class="test" asp-area="AdminPanel" asp-controller="Home" asp-action="EditUser" method="post" enctype="multipart/form-data">
+                            
+                            <div class="form-group">
+                            <div class="headerform">
+                                ویرایش کاربر
+                            </div>
+                            <label class="fonT">ادرس ایمیل :</label>
+                            <input asp-for="email" type="email" class="form-control fonT" aria-describedby="emailHelp" value="@Model.email" placeholder="ایمیل">
+                            </div>
+                            <div class="form-group">
+                            <label class="fonT">نام کاربری :</label>
+                            <input asp-for="username" type="text" class="form-control fonT" value="@Model.username" placeholder="نام کاربری">
+                            </div>
+                            <div class="form-group">
+                            <label class="fonT">نام و نام خانوادگی :</label>
+                            <input asp-for="fullname" type="text" class="form-control fonT" value="@Model.fullname" placeholder="نام و نام خانوادگی">
+                            </div>
+                            <div class="form-group">
+                            <label class="fonT">عکس پروفایل :</label>
+                                <input name="ImgUp" type="file" class="">
+                            </div>
+                            <div class="form-group">
+                            <label style="display: inline-block" class="fonT">فعال : </label>
+                            <input style="opacity: unset; position: unset;display: inline-block;margin-right:10%" asp-for="isActive" type="checkbox" class="checkbox">
+                            </div>
+
+                            <div class="form-group">
+                            <label style="display: inline-block" class="fonT">حذف  : </label>
+                            <input style="opacity: unset; position: unset;display: inline-block;margin-right:10%" asp-for="isDeleted" type="checkbox" class="checkbox">
+                            </div>
+
+
+                            <div class="form-group">
+                            <label class="fonT">ادمین :</label>
+                                <input style="opacity: unset;position: unset;margin-right:10%" type="checkbox" asp-for="IsAdmin" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">ویرایش</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

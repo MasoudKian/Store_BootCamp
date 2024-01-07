@@ -1,0 +1,103 @@
+﻿@model ICollection<Store_BootCamp.Application.ViewModels.Account.UserViewmodel>
+
+@{
+    ViewData["Title"] = "لیست کاربر ها";
+}
+
+<div style="margin-right:13%" class="container mt-5">
+    <div class="page-body">
+        <div class="row">
+            <div class="col col-4">
+                <div class="well with-header  with-footer">
+                    <div class="header bg-blue">
+                       جدول کاربرها
+                    </div>
+                    <a class="btn btn-outline-info" asp-area="AdminPanel" asp-controller="Home" asp-action="AddUserByAdmin">اضافه کردن کاربری جدید</a>
+                    <table class="table table-hover">
+
+                        <thead class="bordered-darkorange">
+
+                            <tr>
+                                <th>
+                                    نام کاربری
+
+                                </th>
+                                <th>
+                                    ایمیل
+                                </th>
+                                <th>
+                                    نام و نام خانوادگی
+                                </th>
+                                <th>
+                                   عکس کاربری
+                                </th>
+                                <th>
+                                    حساب فعال شده
+                                </th>
+                                <th>
+                                    ادمین سایت
+                                </th>
+                                <th>
+                                   حذف شده
+                                </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.username
+                                    </td>
+                                    <td>
+                                        @item.email
+                                    </td>
+                                    <td>
+                                        @item.fullname
+                                    </td>
+                                    @if (item.img != null)
+                                    {
+                                 
+                                    <td>
+                                        <img style="width:10%" src="~/uploads/@item.img" />
+                                    </td>
+                                    }
+                                    @if(item.img==null){
+                                        <td>
+                                            <img style="width:10%" src="~/UserImage/Defualt.png" />
+                                        </td>
+                                    }
+                                    <td>
+                                        <input style="opacity: unset; position: unset;display: inline-block" type="checkbox" asp-for="@item.isActive" disabled/>
+                                    </td>
+                                    <td>
+                                        <input style="opacity: unset; position: unset;display: inline-block" type="checkbox" asp-for="@item.IsAdmin" disabled />
+                                    </td>
+                                    <td>
+
+                                        <input style="opacity: unset; position: unset;display: inline-block" type="checkbox" asp-for="@item.isDeleted" disabled />
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="EditUser" class="btn btn-warning">ویرایش</a>
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="DeleteUser" class="btn btn-danger">حذف</a>
+                                    </td>
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="FullDeleteUser" class="btn btn-danger"> حذف کامل</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
