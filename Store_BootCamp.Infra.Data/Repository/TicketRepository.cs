@@ -1,8 +1,11 @@
-﻿using Store_BootCamp.Domain.InterfacesRepository;
+﻿using Microsoft.VisualBasic;
+using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
+using Store_BootCamp.Domain.Models.Ticket;
 using Store_BootCamp.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,15 +19,19 @@ namespace Store_BootCamp.Infra.Data.Repository
         {
             _dbContext = storeDBContext;
         }
-        public void AddTicket()
+        public void AddTicket(int id)
         {
-
+            var Ticket=new Ticket();
+            var user = getUserById(id);
+            if (user != null){
+              Ticket.Owner = user;
+            }
         }
 
-        public User GetuserByEmail(string email)
+        public User getUserById(int Id)
         {
-            var currentUser=_dbContext.Users.FirstOrDefault(x => x.Email == email);
-            return currentUser;
+            var user= _dbContext.Users.FirstOrDefault(x => x.Id == Id);
+            return user;
         }
     }
 }

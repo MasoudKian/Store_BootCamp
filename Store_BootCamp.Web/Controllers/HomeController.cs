@@ -16,7 +16,7 @@ namespace Store_BootCamp.Web.Controllers
 
         public IActionResult Index()
         {
-
+           
             return View();
         }
 
