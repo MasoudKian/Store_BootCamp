@@ -70,7 +70,7 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
@@ -133,7 +133,7 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ContactUs");
+                    b.ToTable("ContactUs", (string)null);
                 });
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
@@ -160,7 +160,7 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactUsResponses");
+                    b.ToTable("ContactUsResponses", (string)null);
                 });
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
