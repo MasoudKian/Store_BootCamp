@@ -1,5 +1,7 @@
 ﻿using Store_BootCamp.Application.Services.Interfaces;
+using Store_BootCamp.Application.ViewModels.Ticket;
 using Store_BootCamp.Domain.InterfacesRepository;
+using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Tickets;
 using System;
 using System.Collections.Generic;
@@ -17,15 +19,20 @@ namespace Store_BootCamp.Application.Services.Impelementations
         {
             _ticketRepository = ticket;
         }
+
+        public void AddTicketMassage(TicketMessage ticket)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
 
 
-        public void CreateTicket(Ticket ticket)
+        public void CreateTicket(Ticket ticket, string txt)
         {
             if (ticket != null)
             {
-                _ticketRepository.CreateTicket(ticket);
+                _ticketRepository.CreateTicket(ticket, txt);
             }
         }
 
@@ -45,12 +52,28 @@ namespace Store_BootCamp.Application.Services.Impelementations
         public Ticket GetById(int id)
         {
             return _ticketRepository.GetById(id);
-            
+
         }
 
-        public ICollection<Ticket> GetUserTickets(int id)
+        public User GetUserById(int id)
         {
-            throw new NotImplementedException();
+            return _ticketRepository.GetUserById(id);
+        }
+
+        public ICollection<TicketViewModel> GetUserTickets(int id)
+        {
+            var UserTickets = new List<TicketViewModel>();
+            foreach (var ticket in _ticketRepository.GetUserTickets(id))
+            {
+                var TicketM = new TicketViewModel();
+                TicketM.TicketPriority  = ticket.TicketPriority;
+                TicketM.TicketSection   = ticket.TicketSection;
+                TicketM.Title = ticket.Title;
+                TicketM.dateTime = ticket.CreateDate;
+                TicketM.TicketState = ticket.TicketState;
+                UserTickets.Add(TicketM);
+            }
+            return UserTickets;
         }
 
         public void SaveChange()
@@ -60,8 +83,9 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         public void UpdateTicket(Ticket ticket)
         {
-            if (ticket!=null) {
-            _ticketRepository.UpdateTicket(ticket);
+            if (ticket != null)
+            {
+                _ticketRepository.UpdateTicket(ticket);
             }
         }
     }
