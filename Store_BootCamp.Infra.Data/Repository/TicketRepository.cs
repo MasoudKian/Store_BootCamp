@@ -1,4 +1,5 @@
 ﻿using Store_BootCamp.Domain.InterfacesRepository;
+using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Tickets;
 using Store_BootCamp.Infra.Data.Context;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Store_BootCamp.Infra.Data.Repository
 {
-    public class TicketRepository:ITicketRepository
+    public class TicketRepository : ITicketRepository
     {
         private readonly StoreDBContext _dbContext;
         public TicketRepository(StoreDBContext dbContext)
@@ -17,18 +18,32 @@ namespace Store_BootCamp.Infra.Data.Repository
             _dbContext = dbContext;
         }
 
-
-        public void CreateTicket(Ticket ticket)
+        public void AddTicketMassage(TicketMessage ticket)
         {
-            if (ticket != null) {
-               _dbContext.Add(ticket);
+         
+            _dbContext.TicketMessages.Add(ticket);
+
+        }
+
+        public void CreateTicket(Ticket ticket, string text)
+        {
+            if (text != null)
+            {
+                var Massage = new TicketMessage();
+                Massage.Text = text;
+                Massage.Ticket = ticket;
+                Massage.Sender = ticket.Owner;
+                AddTicketMassage(Massage);
             }
+
+            _dbContext.Add(ticket);
+
         }
 
         public void Delete(int id)
         {
             var ticket = GetById(id);
-            ticket.IsDelete = true;            
+            ticket.IsDelete = true;
         }
 
         public ICollection<Ticket> GetAll()
@@ -39,8 +54,19 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         public Ticket GetById(int id)
         {
-            var ticket = _dbContext.Tickets.FirstOrDefault(a=>a.Id==id);
+            var ticket = _dbContext.Tickets.FirstOrDefault(a => a.Id == id);
             return ticket;
+        }
+
+        public User GetUserById(int id)
+        {
+            return _dbContext.Users.FirstOrDefault(a => a.Id == id);
+        }
+
+        public ICollection<Ticket> GetUserTickets(int id)
+        {
+            var UserTickets = _dbContext.Tickets.Where(a => a.OwnerId == id).ToList();
+            return UserTickets;
         }
 
         public void SaveChange()
