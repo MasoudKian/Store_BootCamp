@@ -26,15 +26,6 @@ namespace Store_BootCamp.Infra.Data.Context
 
 
         #endregion
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
-
-            base.OnModelCreating(modelBuilder);
-        }
-
     }
+
 }

@@ -20,9 +20,9 @@ namespace Store_BootCamp.Domain.Models.Tickets
         #endregion
 
         #region relations
-        [ForeignKey("TicketId")]
+
         public Ticket Ticket { get; set; }
-        [ForeignKey("SenderId")]
+
         public User Sender { get; set; }
 
         #endregion
