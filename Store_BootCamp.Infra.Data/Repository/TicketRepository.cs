@@ -43,6 +43,12 @@ namespace Store_BootCamp.Infra.Data.Repository
             return ticket;
         }
 
+        public ICollection<Ticket> GetUserTickets(int id)
+        {
+            var UserTickets = _dbContext.Tickets.Where(a => a.OwnerId == id).ToList();
+            return UserTickets;
+        }
+
         public void SaveChange()
         {
             _dbContext.SaveChanges();

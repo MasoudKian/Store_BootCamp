@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Store_BootCamp.Domain.InterfacesRepository
+namespace Store_BootCamp.Application.Services.Interfaces
 {
-    public interface ITicketRepository
+    public interface ITicketService
     {
         public void CreateTicket(Ticket ticket);
         public void Delete(int id);
@@ -16,6 +16,5 @@ namespace Store_BootCamp.Domain.InterfacesRepository
         public Ticket GetById(int id);
         public ICollection<Ticket> GetUserTickets(int id);
         public void SaveChange();
-
     }
 }
