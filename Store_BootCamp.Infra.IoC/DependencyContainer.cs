@@ -15,6 +15,7 @@ namespace Store_BootCamp.Infra.IoC
             services.AddTransient<IViewRenderService, RenderViewToString>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<ITicketService, TicketService>();
 
             //Infra Data
             services.AddScoped<IUserRepository, UserRepository>();

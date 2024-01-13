@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Store_BootCamp.Infra.Data.Context;
 
@@ -11,9 +12,11 @@ using Store_BootCamp.Infra.Data.Context;
 namespace Store_BootCamp.Infra.Data.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    partial class StoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240107161424_ticket")]
+    partial class ticket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,9 +112,6 @@ namespace Store_BootCamp.Infra.Data.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<int?>("ResponseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -122,14 +122,10 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
                     b.Property<string>("UserIp")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ResponseId")
-                        .IsUnique()
-                        .HasFilter("[ResponseId] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
@@ -215,16 +211,10 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
                 {
-                    b.HasOne("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", "Response")
-                        .WithOne("ContactUs")
-                        .HasForeignKey("Store_BootCamp.Domain.Models.Contacts.ContactUs", "ResponseId");
-
                     b.HasOne("Store_BootCamp.Domain.Models.Account.User", "User")
                         .WithMany("ContactUs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Response");
 
                     b.Navigation("User");
                 });

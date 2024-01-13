@@ -1,42 +1,116 @@
-﻿using Store_BootCamp.Domain.InterfacesRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
-using Store_BootCamp.Domain.Models.Ticket;
+using Store_BootCamp.Domain.Models.Tickets;
 using Store_BootCamp.Infra.Data.Context;
+using Store_BootCamp.Infra.Data.Migrations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Store_BootCamp.Infra.Data.Repository
 {
     public class TicketRepository : ITicketRepository
     {
         private readonly StoreDBContext _dbContext;
-        public TicketRepository(StoreDBContext storeDBContext)
+        public TicketRepository(StoreDBContext dbContext)
         {
-            _dbContext = storeDBContext;
+            _dbContext = dbContext;
         }
-        public void AddTicket(int id,string time)
+
+        public void AddMassage(TicketMessage ticket)
         {
-            var Ticket = new Ticket();
-            var user = getUserById(id);
-            if (user != null)
+          _dbContext.TicketMessages.Add(ticket);
+                
+        }
+
+        public void AddTicketByAdmin(Ticket ticket, string txt,int AdminId)
+        {
+            var Admin = GetUserById(AdminId);
+            if (txt != null)
             {
-                Ticket.Owner = user;
-                Ticket.dateTime = time;
+                var Massage = new TicketMessage();
+                Massage.Text = txt;
+                Massage.Ticket = ticket;
+                Massage.SenderId =Admin.Id ;
+                Massage.Sender = Admin;
+                AddTicketMassage(Massage);
             }
+
+            _dbContext.Add(ticket);
+
+
         }
 
-        public void closeTicket(int ticketId)
+        public void AddTicketMassage(TicketMessage ticket)
         {
-            throw new NotImplementedException();
+         
+            _dbContext.TicketMessages.Add(ticket);
+
         }
 
-        public void deleteTicket(int ticketId)
+        public void ChangeState(int id)
         {
-            throw new NotImplementedException();
+            var ticket=GetById(id);
+            ticket.TicketState = (TicketState)2;
         }
 
-        public User getUserById(int Id)
+        public void CreateTicket(Ticket ticket)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == Id);
-            return user;
+      
+
+            _dbContext.Add(ticket);
+
         }
+
+        public void Delete(int id)
+        {
+            var ticket = GetById(id);
+            ticket.IsDelete = true;
+        }
+
+        public ICollection<Ticket> GetAll()
+        {
+            var tickets = _dbContext.Tickets.ToList();
+            return tickets;
+        }
+
+        public Ticket GetById(int id)
+        {
+            var ticket = _dbContext.Tickets.FirstOrDefault(a=>a.Id==id);
+            return ticket;
+        }
+
+        public Ticket getTicketDetails(int id)
+        {
+            var ticket=_dbContext.Tickets.Include(a=>a.TicketMessages).ThenInclude(a=>a.Sender).Include(a=>a.Owner).Where(a=>a.Id==id).FirstOrDefault();
+            return ticket;
+        }
+
+        public User GetUserById(int id)
+        {
+            return _dbContext.Users.FirstOrDefault(a => a.Id == id);
+        }
+
+        public ICollection<Ticket> GetUserTickets(int id)
+        {
+            var UserTickets = _dbContext.Tickets.Where(a => a.OwnerId == id).ToList();
+            return UserTickets;
+        }
+
+        public void SaveChange()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateTicket(Ticket ticket)
+        {
+            _dbContext.Tickets.Update(ticket);
+        }
+
+    
     }
 }

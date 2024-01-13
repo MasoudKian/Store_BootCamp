@@ -87,6 +87,9 @@
                                     <td>
                                         <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="FullDeleteUser" class="btn btn-danger"> حذف کامل</a>
                                     </td>
+                                    <td>
+                                        <a asp-route-id="@item.id" asp-area="AdminPanel" asp-controller="Home" asp-action="CreateMassageByAdmin" class="btn btn-danger"> ایجاد تیکت </a>
+                                    </td>
                                 </tr>
                             }
 
@@ -101,3 +104,4 @@
     </div>
 </div>
 
+<a class="btn btn-danger" asp-area="AdminPanel" asp-controller="Home" asp-action="AllTickets">testttttt</a>

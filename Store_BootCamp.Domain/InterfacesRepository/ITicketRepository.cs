@@ -1,4 +1,5 @@
 ﻿using Store_BootCamp.Domain.Models.Account;
+using Store_BootCamp.Domain.Models.Tickets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,19 @@ namespace Store_BootCamp.Domain.InterfacesRepository
 {
     public interface ITicketRepository
     {
-        public void AddTicket(int id,string time);
-        public void closeTicket(int ticketId);
-        public void deleteTicket(int ticketId);
-        public User getUserById(int Id);
+        public void CreateTicket(Ticket ticket);
+        public void AddTicketMassage(TicketMessage ticket);
+        public void AddTicketByAdmin(Ticket ticket,string txt,int AdminId);
+        public void Delete(int id);
+        public ICollection<Ticket> GetAll();
+        public void UpdateTicket(Ticket ticket);
+        public Ticket GetById(int id);
+        public Ticket getTicketDetails(int id);
+        public void AddMassage(TicketMessage ticket);
+        public ICollection<Ticket> GetUserTickets(int id);
+        public User GetUserById(int id);
+        public void ChangeState(int id);
+        public void SaveChange();
 
     }
 }
