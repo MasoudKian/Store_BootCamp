@@ -3,6 +3,7 @@ using NuGet.DependencyResolver;
 using Store_BootCamp.Application.Generators;
 using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.Account;
+using Store_BootCamp.Application.ViewModels.Ticket;
 using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
@@ -13,16 +14,47 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
     {
         private IHostingEnvironment _environment;
         private readonly IUserService userRepository;
-        public HomeController(IUserService user, IHostingEnvironment environment)
+        private readonly ITicketService ticketService;
+        public HomeController(IUserService user, ITicketService ticket, IHostingEnvironment environment)
         {
             userRepository = user;
+            ticketService = ticket;
             _environment = environment;
 
         }
+
+
         public IActionResult Index()
         {
             return View();
         }
+        public IActionResult AllTickets()
+        {
+            var tickets = ticketService.GetAll();
+            return View(tickets);
+        }
+
+        [HttpGet]
+        public IActionResult TicketDetails(int id)
+        {
+            var ticketDetails = ticketService.GetTicketDetails(id);
+            return View(ticketDetails);
+        }
+        [HttpPost]
+        public IActionResult TicketDetails(int id, string massage)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Claims.FirstOrDefault().Value;
+
+                //ticketService.CreateMassage(massage, int.Parse(userId), id);
+                ticketService.SaveChange();
+                return RedirectToAction("TicketDetails", id);
+            }
+            return View(NotFound());
+
+        }
+
         public IActionResult UserList()
         {
             var list = userRepository.GetUsers();
@@ -61,11 +93,11 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
                     ImgUp.CopyTo(stram);
                 }
             }
-           
+
 
 
             #endregion
-            
+
 
             userRepository.EditUser(user);
             userRepository.saveChanges();
@@ -118,6 +150,33 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
 
             return View();
         }
+        public IActionResult ChangeState(int id)
+        {
+
+            if (id != null) { ticketService.ChangeState(id); ticketService.SaveChange(); }
+            return RedirectToAction("AllTickets");
+        }
+        [HttpGet]
+        public IActionResult CreateMassageByAdmin(int id)
+        {
+            var  user=userRepository.GetById(id);
+            TempData["User"]=user.Email;
+            TempData["UserId"] = user.Id;
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateMassageByAdmin(AddTicketByAdminViewmodel ticketView,string txt,int AdminId)
+        {
+            var user = User.Claims.FirstOrDefault().Value;
+            if (ModelState.IsValid)
+            {
+                ticketService.CreateTickAdmin(ticketView,txt,int.Parse(user));
+                ticketService.SaveChange();
+            }
+            return View();
+        }
+
 
     }
 }

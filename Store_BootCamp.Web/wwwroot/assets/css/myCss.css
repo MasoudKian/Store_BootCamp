@@ -1,4 +1,7 @@
-﻿.test {
+﻿body {
+font-size:15px !important;
+}
+.test {
     width: 71rem;
     background-color: white;
     text-align: justify;
@@ -17,4 +20,32 @@
 }
 .fonT {
 font-size:14px !important;
+}
+.box {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    padding: 45px 35px;
+}
+.mb {
+    margin-bottom: 3rem !important;
+}
+.ticket {
+    background-color: white;
+    border-radius: 14px;
+    margin-top:10px;
+    width: 30%;
+}
+.answer {
+    margin-top:10px !important;
+
+}
+.form {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    -webkit-box-shadow: unset !important;
+    box-shadow: unset !important;
+    min-height: 50px;
+    font-size: 14px;
 }

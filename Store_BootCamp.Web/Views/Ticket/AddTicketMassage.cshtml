@@ -1,0 +1,77 @@
+﻿@model Store_BootCamp.Application.ViewModels.Ticket.TicketDetailsViewModel
+
+
+@{
+    var State = Model.TicketState.ToString();
+}
+
+<div class="ui-box bg-white mb-5">
+    <div class="ui-box-title">
+        @Model.title
+    </div>
+    <div class="ui-box-content">
+        <!-- start of tickets -->
+        <div class="tickets">
+            <!-- start of ticket -->
+            @foreach (var item in Model.ticketMessages)
+            {
+
+                @if (item.SenderId == Model.OwnerId)
+                {
+
+                    <div class="ticket reply fa-num">
+                        <img style="width:10%" src="~/uploads/@item.Sender.UserImage" />
+                        <div class=""> @item.Sender.Fullname</div>
+                        <div class="text">
+                            @item.Text
+                        </div>
+                        <div class="date">@item.CreateDate</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="ticket fa-num">
+                        <img style="width:10%" src="~/uploads/@item.Sender.UserImage" />
+                        <div class=""> @item.Sender.Fullname</div>
+                        <div class="text">
+                            @item.Text
+                        </div>
+                        <div class="date">@item.CreateDate</div>
+                    </div>
+                }
+
+            }
+            <!-- end of ticket -->
+            <!-- start of ticket -->
+            <!-- end of ticket -->
+        </div>
+        <!-- end of tickets -->
+        <div class="border-bottom my-4"></div>
+
+
+        @if (State != "Closed")
+        {
+            <div class="ui-box-title p-0 mb-4">
+                ارسال پاسخ
+            </div>
+            <!-- start of add-ticket-form -->
+            <form asp-action="AddTicketMassage" class="add-ticket-form">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- start of form-element -->
+                        <div class="form-element-row mb-5">
+                            <label class="label">پیام</label>
+                            <textarea asp-for="massage" rows="5" class="form-control" placeholder="متن پیام"></textarea>
+                        </div>
+                        <!-- end of form-element -->
+                    </div>
+                    <div class="col-12 text-end">
+                        <button asp-route-TicketId="@Model.ticketId" type="submit" class="btn btn-primary">ارسال پاسخ <i class="ri-ball-pen-line ms-2"></i></button>
+                    </div>
+                </div>
+            </form>
+            <!-- end of add-ticket-form -->
+        }
+
+    </div>
+</div>

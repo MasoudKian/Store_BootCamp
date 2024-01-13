@@ -3,11 +3,14 @@ using Store_BootCamp.Application.ViewModels.Ticket;
 using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Tickets;
+using Store_BootCamp.Infra.Data.Migrations;
+using Store_BootCamp.Infra.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Store_BootCamp.Application.Services.Impelementations
 {
@@ -15,25 +18,53 @@ namespace Store_BootCamp.Application.Services.Impelementations
     {
         #region ctor
         private readonly ITicketRepository _ticketRepository;
-        public TicketService(ITicketRepository ticket)
+        private readonly IUserRepository _userRepository;
+        public TicketService(ITicketRepository ticket, IUserRepository userRepository)
         {
             _ticketRepository = ticket;
+            _userRepository = userRepository;
         }
 
-        public void AddTicketMassage(TicketMessage ticket)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
+        //      if (text != null)
+        //    {
+        //        var Massage = new TicketMessage();
+        //Massage.Text = text;
+        //        Massage.Ticket = ticket;
+        //        Massage.SenderId = ticket.OwnerId;
+        //        AddTicketMassage(Massage);
+        //}
 
-
-        public void CreateTicket(Ticket ticket, string txt)
+        public AddTicketResult AddTicket(TicketViewModel ticket)
         {
-            if (ticket != null)
+            if (ticket == null)
             {
-                _ticketRepository.CreateTicket(ticket, txt);
+                return AddTicketResult.Failed;
             }
+            var newTicket = new Ticket
+            {
+                Title = ticket.Title,
+                CreateDate = DateTime.Now,
+                TicketPriority = ticket.TicketPriority,
+                TicketState = ticket.TicketState,
+                TicketSection = ticket.TicketSection,
+                OwnerId = ticket.OwnerId,
+            };
+
+            _ticketRepository.CreateTicket(newTicket);
+            SaveChange();
+            var newTicketMassage = new TicketMessage
+            {
+                Text = ticket.Text,
+                CreateDate = DateTime.Now,
+                SenderId = ticket.OwnerId,
+                TicketId = newTicket.Id,
+
+            };
+            _ticketRepository.AddMassage(newTicketMassage);
+            SaveChange();
+            return AddTicketResult.Success;
         }
 
         public void Delete(int id)
@@ -55,6 +86,19 @@ namespace Store_BootCamp.Application.Services.Impelementations
 
         }
 
+        public TicketDetailsViewModel GetTicketDetails(int id)
+        {
+            var tickets = _ticketRepository.getTicketDetails(id);
+            var ticketViewmodel = new TicketDetailsViewModel();
+            ticketViewmodel.title = tickets.Title;
+            ticketViewmodel.ticketMessages = tickets.TicketMessages;
+            ticketViewmodel.Date = tickets.CreateDate;
+            ticketViewmodel.ticketId = tickets.Id;
+            ticketViewmodel.TicketState = tickets.TicketState;
+            ticketViewmodel.OwnerId = tickets.OwnerId;
+            return ticketViewmodel;
+        }
+
         public User GetUserById(int id)
         {
             return _ticketRepository.GetUserById(id);
@@ -66,11 +110,12 @@ namespace Store_BootCamp.Application.Services.Impelementations
             foreach (var ticket in _ticketRepository.GetUserTickets(id))
             {
                 var TicketM = new TicketViewModel();
-                TicketM.TicketPriority  = ticket.TicketPriority;
-                TicketM.TicketSection   = ticket.TicketSection;
+                TicketM.TicketPriority = ticket.TicketPriority;
+                TicketM.TicketSection = ticket.TicketSection;
                 TicketM.Title = ticket.Title;
                 TicketM.dateTime = ticket.CreateDate;
                 TicketM.TicketState = ticket.TicketState;
+                TicketM.id = ticket.Id;
                 UserTickets.Add(TicketM);
             }
             return UserTickets;
@@ -88,5 +133,43 @@ namespace Store_BootCamp.Application.Services.Impelementations
                 _ticketRepository.UpdateTicket(ticket);
             }
         }
+
+        public void AddTicketMassage(TicketDetailsViewModel massage)
+        {
+            var NewMassage = new TicketMessage
+            {
+                SenderId = massage.SenderId,
+                TicketId = massage.ticketId,
+                Text = massage.massage,
+            };
+
+            _ticketRepository.AddTicketMassage(NewMassage);
+            SaveChange();
+        }
+
+        public void ChangeState(int id)
+        {
+            _ticketRepository.ChangeState(id);
+        }
+
+        public void CreateTickAdmin(AddTicketByAdminViewmodel Viewmodel, string txt, int AdminId)
+        {
+            var user = _userRepository.GetById(Viewmodel.OwnerId);
+            var ticket = new Ticket();
+            ticket.Title = Viewmodel.Title;
+            ticket.TicketState = Viewmodel.TicketState;
+            ticket.TicketSection = Viewmodel.TicketSection;
+            ticket.TicketPriority = Viewmodel.TicketPriority;
+            ticket.CreateDate = DateTime.Now;
+            ticket.Owner = user;
+
+            if (ticket != null)
+            {
+                _ticketRepository.AddTicketByAdmin(ticket, txt, AdminId);
+            }
+
+        }
+
+
     }
 }

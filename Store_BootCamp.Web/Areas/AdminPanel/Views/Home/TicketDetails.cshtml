@@ -1,0 +1,48 @@
+﻿@model Store_BootCamp.Application.ViewModels.Ticket.TicketDetailsViewModel
+
+<div class="box mb " style="margin-right:20px !important">
+    <div class="ui-box-title">
+        @Model.title
+    </div>
+    <div class="ui-box-content">
+        <!-- start of tickets -->
+        <div class="tickets">
+            <!-- start of ticket -->
+            @foreach (var item in Model.ticketMessages)
+            {
+                <div class="ticket fa-num ticket">
+                    <img style="width:10%" src="~/uploads/@item.Sender.UserImage" />
+                    <div class=""> @item.Sender.Fullname</div>
+                    <div class="text">
+                        @item.Text
+                    </div>
+                    <div class="date">@item.CreateDate</div>
+                </div>
+            }
+            <!-- end of ticket -->
+            <!-- start of ticket -->
+            <!-- end of ticket -->
+        </div>
+        <!-- end of tickets -->
+        <div class="border-bottom my-4"></div>
+        
+        <!-- start of add-ticket-form -->
+        <form asp-action="AddTicketMassage" class="add-ticket-form">
+            <div class="row">
+                <div class="col-12">
+                    <!-- start of form-element -->
+                    <div class="form-element-row mb-5">
+                        <label class="label">پیام</label>
+                        <textarea asp-for="massage" rows="5" class="form-control form" placeholder="متن پیام"></textarea>
+                    </div>
+                    <!-- end of form-element -->
+                </div>
+                <div class="col-12 text-end">
+                    <button asp-route-TicketId="@Model.ticketId" type="submit" class="answer btn btn-warning">ارسال پاسخ <i class="ri-ball-pen-line ms-2"></i></button>
+                </div>
+            </div>
+        </form>
+        <!-- end of add-ticket-form -->
+    </div>
+</div>
+

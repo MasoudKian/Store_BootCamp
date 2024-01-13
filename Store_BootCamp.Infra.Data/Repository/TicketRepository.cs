@@ -1,12 +1,15 @@
-﻿using Store_BootCamp.Domain.InterfacesRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Tickets;
 using Store_BootCamp.Infra.Data.Context;
+using Store_BootCamp.Infra.Data.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Store_BootCamp.Infra.Data.Repository
 {
@@ -18,6 +21,30 @@ namespace Store_BootCamp.Infra.Data.Repository
             _dbContext = dbContext;
         }
 
+        public void AddMassage(TicketMessage ticket)
+        {
+          _dbContext.TicketMessages.Add(ticket);
+                
+        }
+
+        public void AddTicketByAdmin(Ticket ticket, string txt,int AdminId)
+        {
+            var Admin = GetUserById(AdminId);
+            if (txt != null)
+            {
+                var Massage = new TicketMessage();
+                Massage.Text = txt;
+                Massage.Ticket = ticket;
+                Massage.SenderId =Admin.Id ;
+                Massage.Sender = Admin;
+                AddTicketMassage(Massage);
+            }
+
+            _dbContext.Add(ticket);
+
+
+        }
+
         public void AddTicketMassage(TicketMessage ticket)
         {
          
@@ -25,16 +52,15 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         }
 
-        public void CreateTicket(Ticket ticket, string text)
+        public void ChangeState(int id)
         {
-            if (text != null)
-            {
-                var Massage = new TicketMessage();
-                Massage.Text = text;
-                Massage.Ticket = ticket;
-                Massage.Sender = ticket.Owner;
-                AddTicketMassage(Massage);
-            }
+            var ticket=GetById(id);
+            ticket.TicketState = (TicketState)2;
+        }
+
+        public void CreateTicket(Ticket ticket)
+        {
+      
 
             _dbContext.Add(ticket);
 
@@ -54,7 +80,13 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         public Ticket GetById(int id)
         {
-            var ticket = _dbContext.Tickets.FirstOrDefault(a => a.Id == id);
+            var ticket = _dbContext.Tickets.FirstOrDefault(a=>a.Id==id);
+            return ticket;
+        }
+
+        public Ticket getTicketDetails(int id)
+        {
+            var ticket=_dbContext.Tickets.Include(a=>a.TicketMessages).ThenInclude(a=>a.Sender).Include(a=>a.Owner).Where(a=>a.Id==id).FirstOrDefault();
             return ticket;
         }
 
@@ -78,5 +110,7 @@ namespace Store_BootCamp.Infra.Data.Repository
         {
             _dbContext.Tickets.Update(ticket);
         }
+
+    
     }
 }
