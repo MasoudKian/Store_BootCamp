@@ -1,0 +1,17 @@
+﻿@model ICollection<Store_BootCamp.Application.ViewModels.Category.CategoryViewModel>
+
+
+
+
+
+
+<ul style="width: 50%;
+    margin: auto;
+    margin-top: 10px;" class="list-group">
+
+    @foreach(var item in Model)
+    {
+    <li class="list-group-item">@item.Title </li>
+    }
+    <li><a class="btn btn-primary">ایجاد دسته بندی </a></li>
+</ul>

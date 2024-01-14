@@ -12,7 +12,7 @@ namespace Store_BootCamp.Domain.InterfacesRepository
     {
         public void CreateTicket(Ticket ticket);
         public void AddTicketMassage(TicketMessage ticket);
-        public void AddTicketByAdmin(Ticket ticket,string txt,int AdminId);
+        //public void AddTicketByAdmin(Ticket ticket,string txt,int AdminId);
         public void Delete(int id);
         public ICollection<Ticket> GetAll();
         public void UpdateTicket(Ticket ticket);

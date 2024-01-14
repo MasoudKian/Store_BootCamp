@@ -73,6 +73,26 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Category.Category", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("ParentsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("categories");
+                });
+
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
                 {
                     b.Property<int>("Id")
@@ -136,6 +156,33 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.ToTable("ContactUs");
                 });
 
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailUser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ResponseMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUsResponses");
+                });
+
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Tickets.Ticket", b =>
                 {
                     b.Property<int>("Id")
@@ -170,8 +217,8 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
 
@@ -217,7 +264,8 @@ namespace Store_BootCamp.Infra.Data.Migrations
                 {
                     b.HasOne("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", "Response")
                         .WithOne("ContactUs")
-                        .HasForeignKey("Store_BootCamp.Domain.Models.Contacts.ContactUs", "ResponseId");
+                        .HasForeignKey("Store_BootCamp.Domain.Models.Contacts.ContactUs", "ResponseId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Store_BootCamp.Domain.Models.Account.User", "User")
                         .WithMany("ContactUs")
@@ -260,6 +308,11 @@ namespace Store_BootCamp.Infra.Data.Migrations
                 });
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Account.User", b =>
+                {
+                    b.Navigation("ContactUs");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
                 {
                     b.Navigation("ContactUs");
                 });

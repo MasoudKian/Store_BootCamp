@@ -12,7 +12,7 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
     [Area("AdminPanel")]
     public class HomeController : Controller
     {
-        
+
         private IHostingEnvironment _environment;
         private readonly IUserService userRepository;
         private readonly ITicketService ticketService;
@@ -42,17 +42,18 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
             return View(ticketDetails);
         }
         [HttpPost]
-        public IActionResult TicketDetails(int id, string massage)
+        public IActionResult TicketDetails(TicketDetailsViewModel ticket)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = User.Claims.FirstOrDefault().Value;
 
-                //ticketService.CreateMassage(massage, int.Parse(userId), id);
-                ticketService.SaveChange();
-                return RedirectToAction("TicketDetails", id);
+            var userId = User.Claims.FirstOrDefault().Value;
+            if (ticket.ticketId !=null & ticket.massage !=null)
+            {
+            ticket.SenderId=int.Parse(userId);
+            ticketService.AddTicketMassage(ticket);
+         
             }
-            return View(NotFound());
+
+            return RedirectToAction("TicketDetails",ticket.ticketId);
 
         }
 
@@ -160,23 +161,26 @@ namespace Store_BootCamp.Web.Areas.AdminPanel.Controllers
         [HttpGet]
         public IActionResult CreateMassageByAdmin(int id)
         {
-            var  user=userRepository.GetById(id);
-            TempData["User"]=user.Email;
+            var user = userRepository.GetById(id);
+            TempData["User"] = user.Email;
             TempData["UserId"] = user.Id;
 
             return View();
         }
         [HttpPost]
-        public IActionResult CreateMassageByAdmin(AddTicketByAdminViewmodel ticketView,string txt,int AdminId)
+        public IActionResult CreateMassageByAdmin(AddTicketByAdminViewmodel ticketView)
         {
             var user = User.Claims.FirstOrDefault().Value;
             if (ModelState.IsValid)
             {
-                ticketService.CreateTickAdmin(ticketView,txt,int.Parse(user));
-                ticketService.SaveChange();
+                ticketService.CreateTickAdmin(ticketView, int.Parse(user));
+              
+                return RedirectToAction("AllTickets");
+
             }
             return View();
         }
+
 
 
     }

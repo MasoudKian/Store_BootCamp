@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Store_BootCamp.Application.Services.Interfaces;
 using Store_BootCamp.Application.ViewModels.Ticket;
 using Store_BootCamp.Domain.Models.Tickets;
@@ -30,14 +31,15 @@ namespace Store_BootCamp.Web.Controllers
         public IActionResult AddTicket(TicketViewModel ticket)
         {
             var userId = User.Claims.FirstOrDefault().Value;
-            var UserE = ticketService.GetUserById(int.Parse(userId));
-            ticket.OwnerId = UserE.Id;
-            if (ticket != null)
+            ticket.OwnerId = int.Parse(userId);
+            if (ModelState.IsValid)
             {
-                ticketService.AddTicket(ticket);
+                ticketService.AddTicket(ticket,int.Parse(userId));
                 ticketService.SaveChange();
+                return RedirectToAction("Index");
+
             }
-            return RedirectToAction("Index");
+            return View();
         }
 
         [HttpGet]
@@ -50,20 +52,21 @@ namespace Store_BootCamp.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddTicketMassage()
+        public IActionResult AddTicketMassage(TicketDetailsViewModel ticketDetails)
         {
             var userId = User.Claims.FirstOrDefault().Value;
-            if ()
+            ticketDetails.SenderId = int.Parse(userId);
+            if (ticketDetails.ticketId !=null & ticketDetails.massage!=null)
             {
-                ticketService.AddTicketMassage();
-                ticketService.SaveChange();
+            ticketService.AddTicketMassage(ticketDetails);
             }
 
 
-            return RedirectToAction("AddTicketMassage",Ticketid);
+
+            return RedirectToAction("AddTicketMassage", ticketDetails.ticketId);
         }
 
-      
+
 
     }
 }

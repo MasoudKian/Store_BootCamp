@@ -1,6 +1,6 @@
 ﻿using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Tickets;
-using Store_BootCamp.Infra.Data.Migrations;
+//using Store_BootCamp.Infra.Data.Migrations
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +20,9 @@ namespace Store_BootCamp.Application.ViewModels.Ticket
         public int SenderId { get; set; }
         public TicketState TicketState { get; set; }
         public ICollection<TicketMessage> ticketMessages { get; set; }
+    }
+    public enum State {
+    Success,
+    failed
     }
 }

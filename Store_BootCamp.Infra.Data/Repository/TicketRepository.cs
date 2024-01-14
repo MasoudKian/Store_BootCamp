@@ -3,7 +3,7 @@ using Store_BootCamp.Domain.InterfacesRepository;
 using Store_BootCamp.Domain.Models.Account;
 using Store_BootCamp.Domain.Models.Tickets;
 using Store_BootCamp.Infra.Data.Context;
-using Store_BootCamp.Infra.Data.Migrations;
+//using Store_BootCamp.Infra.Data.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,24 +25,6 @@ namespace Store_BootCamp.Infra.Data.Repository
         {
           _dbContext.TicketMessages.Add(ticket);
                 
-        }
-
-        public void AddTicketByAdmin(Ticket ticket, string txt,int AdminId)
-        {
-            var Admin = GetUserById(AdminId);
-            if (txt != null)
-            {
-                var Massage = new TicketMessage();
-                Massage.Text = txt;
-                Massage.Ticket = ticket;
-                Massage.SenderId =Admin.Id ;
-                Massage.Sender = Admin;
-                AddTicketMassage(Massage);
-            }
-
-            _dbContext.Add(ticket);
-
-
         }
 
         public void AddTicketMassage(TicketMessage ticket)
@@ -97,7 +79,7 @@ namespace Store_BootCamp.Infra.Data.Repository
 
         public ICollection<Ticket> GetUserTickets(int id)
         {
-            var UserTickets = _dbContext.Tickets.Where(a => a.OwnerId == id).ToList();
+            var UserTickets = _dbContext.Tickets.Where(a=>a.OwnerId==id).ToList();
             return UserTickets;
         }
 

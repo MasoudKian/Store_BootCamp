@@ -26,7 +26,12 @@ namespace Store_BootCamp.Application.ViewModels.Ticket
 
         [Display(Name = "اولویت")]
         public TicketPriority TicketPriority { get; set; }
+        public string Massage { get; set; }
 
-       
+    }
+    public enum state {
+    
+    success,
+    faild
     }
 }

@@ -27,7 +27,7 @@
                     <div class="form-element-row mb-5">
                         <label class="label">بخش</label>
                         <select class="select2" asp-for="TicketSection" asp-items="Html.GetEnumSelectList<TicketSection>()">
-                            <option selected="selected" value="">بخش...</option>
+                            <option selected="selected" >بخش...</option>
                         </select>
                     </div>
                     <!-- end of form-element -->
@@ -37,7 +37,7 @@
                     <div class="form-element-row mb-5">
                         <label class="label">اولویت</label>
                         <select asp-for="TicketPriority" asp-items="Html.GetEnumSelectList<TicketPriority>()" class="select2 " name="priority" id="priority" data-select2-id="select2-data-priority" tabindex="-1" aria-hidden="true">
-                            <option selected="selected" value="">درجه اهمیت</option>
+                            <option selected="selected" >درجه اهمیت</option>
 
                         </select>
                     </div>

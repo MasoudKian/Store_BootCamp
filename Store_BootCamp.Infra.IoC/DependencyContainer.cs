@@ -16,11 +16,14 @@ namespace Store_BootCamp.Infra.IoC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
 
             //Infra Data
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
     }

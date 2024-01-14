@@ -12,8 +12,8 @@ using Store_BootCamp.Infra.Data.Context;
 namespace Store_BootCamp.Infra.Data.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    [Migration("20240107133402_TicketMassages")]
-    partial class TicketMassages
+    [Migration("20240114133710_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,6 +76,26 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Category.Category", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("ParentsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("categories");
+                });
+
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
                 {
                     b.Property<int>("Id")
@@ -112,6 +132,9 @@ namespace Store_BootCamp.Infra.Data.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<int?>("ResponseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -122,101 +145,169 @@ namespace Store_BootCamp.Infra.Data.Migrations
 
                     b.Property<string>("UserIp")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ResponseId")
+                        .IsUnique()
+                        .HasFilter("[ResponseId] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("ContactUs");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("dateTime")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("tickets");
-                });
-
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.TicketMassage", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("DateAndTime")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SenderId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TicketForId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("message")
+                    b.Property<string>("EmailUser")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ResponseMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUsResponses");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Tickets.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReadByAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReadByOwner")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketPriority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketSection")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketState")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Tickets.TicketMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("SenderId");
 
-                    b.HasIndex("TicketForId");
+                    b.HasIndex("TicketId");
 
-                    b.ToTable("ticketsMassage");
+                    b.ToTable("TicketMessages");
                 });
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUs", b =>
                 {
+                    b.HasOne("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", "Response")
+                        .WithOne("ContactUs")
+                        .HasForeignKey("Store_BootCamp.Domain.Models.Contacts.ContactUs", "ResponseId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Store_BootCamp.Domain.Models.Account.User", "User")
                         .WithMany("ContactUs")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Response");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Tickets.Ticket", b =>
                 {
                     b.HasOne("Store_BootCamp.Domain.Models.Account.User", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.TicketMassage", b =>
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Tickets.TicketMessage", b =>
                 {
                     b.HasOne("Store_BootCamp.Domain.Models.Account.User", "Sender")
                         .WithMany()
-                        .HasForeignKey("SenderId");
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("Store_BootCamp.Domain.Models.Ticket.Ticket", "TicketFor")
-                        .WithMany("massages")
-                        .HasForeignKey("TicketForId");
+                    b.HasOne("Store_BootCamp.Domain.Models.Tickets.Ticket", "Ticket")
+                        .WithMany("TicketMessages")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Sender");
 
-                    b.Navigation("TicketFor");
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Store_BootCamp.Domain.Models.Account.User", b =>
@@ -224,9 +315,14 @@ namespace Store_BootCamp.Infra.Data.Migrations
                     b.Navigation("ContactUs");
                 });
 
-            modelBuilder.Entity("Store_BootCamp.Domain.Models.Ticket.Ticket", b =>
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Contacts.ContactUsResponse", b =>
                 {
-                    b.Navigation("massages");
+                    b.Navigation("ContactUs");
+                });
+
+            modelBuilder.Entity("Store_BootCamp.Domain.Models.Tickets.Ticket", b =>
+                {
+                    b.Navigation("TicketMessages");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,8 +11,8 @@ namespace Store_BootCamp.Application.Services.Interfaces
 {
     public interface ITicketService
     {
-        public AddTicketResult AddTicket(TicketViewModel ticket);
-        public void AddTicketMassage(TicketDetailsViewModel massage);
+        public AddTicketResult AddTicket(TicketViewModel ticket,int userId);
+        public State AddTicketMassage(TicketDetailsViewModel ticketDetails);
       
 
         public void Delete(int id);
@@ -24,7 +24,7 @@ namespace Store_BootCamp.Application.Services.Interfaces
         public TicketDetailsViewModel GetTicketDetails(int id);
        
         public void ChangeState(int id);
-        public void CreateTickAdmin(AddTicketByAdminViewmodel addTicketByAdminViewmodel,string text,int AdmiId);
+        public state CreateTickAdmin(AddTicketByAdminViewmodel addTicketByAdminViewmodel,int AdmiId);
         public void SaveChange();
     }
 }
